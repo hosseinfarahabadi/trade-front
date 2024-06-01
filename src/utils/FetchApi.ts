@@ -5,7 +5,7 @@ export type OptionsType = Options;
 const access = typeof window !== "undefined" ? window.localStorage.getItem("access") : "";
 const defaultOpTion = {
   headers: {
-    authorization: "Bearer " + access,
+    // authorization: "Bearer " + access,
   },
 };
 
@@ -54,7 +54,7 @@ const deleteMethod = async (link: string, Option?: Options | undefined): Promise
 };
 
 const setToken = (token: string) => {
-  defaultOpTion.headers.authorization = "Bearer " + token;
+  // defaultOpTion.headers.authorization = "Bearer " + token;
 };
 
 const FetchApi = {

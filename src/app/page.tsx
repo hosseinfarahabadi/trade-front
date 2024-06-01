@@ -1,9 +1,11 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { MostDeleteVm } from "@/feature/history";
+
+export default function Page() {
   return (
     <>
-      <div></div>
+      <MostDeleteVm />
     </>
   );
 }
