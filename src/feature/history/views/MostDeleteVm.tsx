@@ -68,13 +68,6 @@ const MostDeleteVm = () => {
             <TableColumn key="count"> drowDown</TableColumn>
             <TableColumn key="count"> نماد</TableColumn>
             <TableColumn key="count"> buy/Sell</TableColumn>
-            <TableColumn
-              key="description"
-              className="!rounded-r-none rounded-l-lg"
-            >
-              {" "}
-              تعداد ماشین حذف شده
-            </TableColumn>
           </TableHeader>
           <TableBody
             loadingContent={<Spinner />}
