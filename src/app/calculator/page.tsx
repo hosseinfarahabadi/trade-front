@@ -1,11 +1,11 @@
 "use client";
 
-import { TradeList } from "@/feature/history";
+import { Calculator } from "@/feature/history";
 
 export default function Page() {
   return (
     <>
-      <TradeList />
+      <Calculator />
     </>
   );
 }

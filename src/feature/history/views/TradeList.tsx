@@ -2,13 +2,9 @@ import SearchNewIcon from "@/assets/icons/SearchNewIcon";
 import ServerIcon from "@/assets/icons/ServerIcon";
 import EmptyState from "@/components/emptyState/EmptyState";
 import {
-  Button,
   Card,
   CardHeader,
-  Input,
   Pagination,
-  Select,
-  SelectItem,
   Spinner,
   Table,
   TableBody,
@@ -18,18 +14,13 @@ import {
   TableRow,
   useDisclosure,
 } from "@nextui-org/react";
-import { Key } from "react";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import { DateObject } from "react-multi-date-picker";
-import { useMostDeleteVm } from "../hooks/useMostDeleteVm";
-import SearchModal from "./SearchModal";
+import { useTradeList } from "../hooks/useTradeList";
 import { ITradeHistory } from "../interfaces";
 
-const MostDeleteVm = () => {
-  const { tableData, loading, page, setPage, totalPage, perPage, setPerPage } =
-    useMostDeleteVm();
+const TradeList = () => {
+  const { tableData, loading, page, setPage, totalPage } = useTradeList();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  console.log(tableData);
   return (
     <>
       <Card className="px-4 py-6 mt-6 overflow-visible">
@@ -125,4 +116,4 @@ const MostDeleteVm = () => {
     </>
   );
 };
-export default MostDeleteVm;
+export default TradeList;

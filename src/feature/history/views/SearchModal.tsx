@@ -51,7 +51,10 @@ export default function SearchModal({
                     placeHolder="تاریخ را انتخاب کنبد"
                     portal={false}
                     value={
-                      startDate && new DateObject(startDate).convert(persian, persian_fa).format()
+                      startDate &&
+                      new DateObject(startDate)
+                        .convert(persian, persian_fa)
+                        .format()
                     }
                     onChange={(e: any) => {
                       let date = new DateObject(e)
@@ -66,7 +69,12 @@ export default function SearchModal({
                   <DatePickerIcon
                     portal={false}
                     placeHolder="تاریخ را انتخاب کنبد"
-                    value={endDate && new DateObject(endDate).convert(persian, persian_fa).format()}
+                    value={
+                      endDate &&
+                      new DateObject(endDate)
+                        .convert(persian, persian_fa)
+                        .format()
+                    }
                     onChange={(e: any) => {
                       let date = new DateObject(e)
                         .convert(gregorian, gregorian_en)
@@ -88,7 +96,11 @@ export default function SearchModal({
               >
                 جستجو
               </Button>
-              <Button color="default" className="text-white bg-asiatech-gray-600" onClick={onClose}>
+              <Button
+                color="default"
+                className="text-white bg-asiatech-gray-600"
+                onClick={onClose}
+              >
                 بازگشت
               </Button>
             </ModalFooter>

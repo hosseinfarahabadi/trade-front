@@ -7,6 +7,12 @@ export interface ITradeHistory {
   id: number
   attributes: Attributes
 }
+export interface ITradeObject {
+  
+   result: string;
+    drowDown: number;
+
+}
 
 export interface Attributes {
   volume: number

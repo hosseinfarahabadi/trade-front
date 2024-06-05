@@ -5,9 +5,9 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { DateObject } from "react-multi-date-picker";
 import { getHighestAmount, getHighestAmountExcel } from "../helper/controller";
-import { ITradeHistory } from "../interfaces";
+import { ITradeHistory, ITradeObject } from "../interfaces";
 
-export const useMostDeleteVm = () => {
+export const useTradeList = () => {
     const today = new DateObject().format("YYYY-MM-DD")
     const todayFa = new DateObject({ calendar: persian, locale: persian_fa }).format("YYYY/MM/DD")
     const [disableBtn, setDiasableBtn] = useState<boolean>(false);
@@ -17,6 +17,7 @@ export const useMostDeleteVm = () => {
     const [perPage, setPerPage] = useState<number>(10)
     const [totalPage, setTotalPage] = useState<number>(1)
     const [tableData, setTableData] = useState<ITradeHistory[]>([])
+    const [tradeObject, setTradeObject] = useState<ITradeObject[]>([])
 
     const [search, setSearch] = useState<string>("");
     const debouncedcSearch = useDebounce<string>(search, 1000);
@@ -36,6 +37,16 @@ export const useMostDeleteVm = () => {
         }
 
     }, [page, perPage])
+    useEffect(() => {
+        if (tableData.length > 0) {
+            const newTemp = tableData.map((item:ITradeHistory) =>({
+                result: item.attributes.result,
+                drowDown: item.attributes.drowDown
+              }))
+              setTradeObject(newTemp)
+        }
+
+    }, [tableData])
 
     return {
         tableData,
@@ -48,5 +59,6 @@ export const useMostDeleteVm = () => {
         setLoading,
         totalPage,
         setTotalPage,
+        tradeObject,
     }
 }

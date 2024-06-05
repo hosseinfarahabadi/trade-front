@@ -107,9 +107,9 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
     let tempRoute: TRoutes[] = [
       {
         isShow: true,
-        name: "dashboard",
-        path: "/panel/dashboard",
-        title: "کلود در یک نگاه",
+        name: "calculator",
+        path: "/calculator",
+        title: "ماشین حساب",
         icon: <MonitorChartIcon className="w-6 h-6" />,
       },
       {
