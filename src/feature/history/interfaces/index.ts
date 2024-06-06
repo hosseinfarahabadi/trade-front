@@ -9,6 +9,7 @@ export interface ITradeHistory {
 }
 export interface ITradeObject {
   
+   id: number;
    result: string;
     drowDown: number;
 

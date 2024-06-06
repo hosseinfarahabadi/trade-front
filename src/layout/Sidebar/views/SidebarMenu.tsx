@@ -107,30 +107,37 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
     let tempRoute: TRoutes[] = [
       {
         isShow: true,
+        name: "trade",
+        path: "/",
+        title: "نتایج ترید",
+        icon: <Datacentericon className="w-6 h-6" />,
+      },
+      {
+        isShow: true,
         name: "calculator",
         path: "/calculator",
         title: "ماشین حساب",
         icon: <MonitorChartIcon className="w-6 h-6" />,
       },
-      {
-        path: 1,
-        title: "اطلاع رسانی",
-        icon: <BugleIcon className="w-6 h-6" />,
-        height: "h-[120px]",
-        isOpen: false,
-        children: [
-          {
-            path: "/panel/news/list",
-            title: "تازه ها",
-          },
-          {
-            path: "/panel/promotions/list",
-            title: "پروموشن محصول ",
-          },
-        ],
-        isShow: true,
-        name: "notification",
-      },
+      // {
+      //   path: 1,
+      //   title: "اطلاع رسانی",
+      //   icon: <BugleIcon className="w-6 h-6" />,
+      //   height: "h-[120px]",
+      //   isOpen: false,
+      //   children: [
+      //     {
+      //       path: "/panel/news/list",
+      //       title: "تازه ها",
+      //     },
+      //     {
+      //       path: "/panel/promotions/list",
+      //       title: "پروموشن محصول ",
+      //     },
+      //   ],
+      //   isShow: true,
+      //   name: "notification",
+      // },
     ];
     tempRoute = tempRoute.map((route, index) => {
       // if (id && users[id] && users[id]?.filter((user: any) => user === route.name)[0]) {

@@ -40,8 +40,9 @@ export const useTradeList = () => {
     useEffect(() => {
         if (tableData.length > 0) {
             const newTemp = tableData.map((item:ITradeHistory) =>({
+                id: item.id,
                 result: item.attributes.result,
-                drowDown: item.attributes.drowDown
+                drowDown: item.attributes.drowDown,
               }))
               setTradeObject(newTemp)
         }

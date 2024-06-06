@@ -13,10 +13,10 @@ import {
 import ReactECharts from "echarts-for-react";
 
 import { useTradeList } from "../hooks/useTradeList";
+import { ITradeObject } from "../interfaces";
 
 interface IbetTable {
-  tournament: number;
-  game: number;
+  id: number;
   result: string;
   bet: number;
   wallet: number;
@@ -28,9 +28,9 @@ const Calculator = () => {
   console.log(tradeObject);
 
   let winFlag: any = null;
-  const initialBet = 100;
   let cash = 0;
-  let wallet = 10000;
+  let wallet = 1000;
+  const initialBet = 10;
   let walletOut = 0;
   let bet = initialBet;
 
@@ -38,7 +38,9 @@ const Calculator = () => {
   let winCount = 0;
   let winRate = 0;
   let gameSet = 0;
-  let gameSetArr: number[] = [];
+  let lossCount = 0;
+  let mostLossNum = 0;
+  let tradeNumber: number[] = [];
   let walletArr: number[] = [];
   // let gameRounds = 5
   let history: IbetTable[] = [
@@ -51,73 +53,136 @@ const Calculator = () => {
   let historyObj: IbetTable;
   const side = "h";
 
-  const tossCoin = () => {
-    const random = Math.random();
-    const newResult = random < 0.5 ? "h" : "t";
-    return newResult;
-  };
-  const simulateTournament = (gameRounds: any) => {
-    for (let i = 1; i <= tournament; i++) {
-      for (let j = 1; j <= gameRounds; j++) {
-        gameSet += 1;
-        gameSetArr.push(gameSet);
-        //toss a coin
-        const res = tossCoin();
-        //check res
-        if (side === res) {
-          winFlag = "W";
-        } else {
-          winFlag = "L";
+  const simulateTrade = () => {
+    tradeObject.map((trade: ITradeObject, index: number) => {
+      console.log(trade);
+      tradeNumber.push(trade.id);
+      if (trade.result == "w") {
+        lossCount = 0;
+        winCount += 1;
+        wallet = wallet + bet + bet;
+        if (bet > (wallet * 1) / 100 / 2) {
+          bet = bet / 2;
         }
-
-        if (winFlag == "W") {
-          winCount += 1;
-          wallet = wallet + bet + bet;
-          if (bet > 50) {
-            bet = bet / 2;
-          }
-          if (bet > 3000) {
-            bet = initialBet;
-          }
-          // bet = bet * 2;
-        } else {
-          wallet = wallet - bet;
-          // if (bet > 300) {
-          //   bet = bet / 2;
-          // } else {
-          //   bet *= 1.5;
-          // }
-          bet *= 1.5;
+        if (bet > 300) {
+          bet = (wallet * 1) / 100;
         }
-        winRate = (winCount / j) * 100;
-        walletArr.push(wallet);
-        historyObj = {
-          tournament: i,
-          game: j,
-          result: winFlag,
-          bet: Math.round(bet),
-          wallet: Math.round(wallet),
-          walletOut: Math.round(walletOut),
-          winRate: Math.round(winRate),
-        };
-        history.push(historyObj);
-        // console.log("wallet:", wallet);
-        // console.log("bet:", bet);
+        // bet = bet * 2;
+      } else {
+        wallet = wallet - bet;
+        lossCount += 1;
+        if (lossCount > mostLossNum) {
+          mostLossNum = lossCount;
+        }
+        // let lessMonyy = (wallet * 50) / 100;
+        // console.log(lessMonyy);
+        // if (bet > lessMonyy) {
+        //   bet = initialBet;
+        // }
+        // if (bet > 300) {
+        //   bet = bet / 2;
+        // } else {
+        //   bet *= 1.5;
+        // }
+        bet *= 1.5;
       }
-      // console.log("walletOut:", wallet);
 
-      // console.log("historyObj:", historyObj);
-      bet = initialBet;
-      winFlag = null;
-    }
+      winRate = (winCount / tradeObject.length) * 100;
+      walletArr.push(wallet);
+      historyObj = {
+        id: trade.id,
+        result: trade.result,
+        bet: Math.round(bet),
+        wallet: Math.round(wallet),
+        walletOut: Math.round(walletOut),
+        winRate: Math.round(winRate),
+      };
+      history.push(historyObj);
+    });
+    console.log(historyObj);
   };
+  simulateTrade();
+  // const tossCoin = () => {
+  //   const random = Math.random();
+  //   const newResult = random < 0.5 ? "h" : "t";
+  //   return newResult;
+  // };
+  // const simulateTournament = (gameRounds: any) => {
+  //   for (let i = 1; i <= tournament; i++) {
+  //     for (let j = 1; j <= gameRounds; j++) {
+  //       gameSet += 1;
+  //       gameSetArr.push(gameSet);
+  //       //toss a coin
+  //       const res = tossCoin();
+  //       //check res
+  //       if (side === res) {
+  //         // console.log("win");
+  //         winFlag = "W";
+  //       } else {
+  //         // console.log("lose");
+  //         winFlag = "L";
+  //       }
 
-  simulateTournament(500);
+  //       if (winFlag == "W") {
+  //         lossCount = 0;
+  //         winCount += 1;
+  //         wallet = wallet + bet + bet;
+  //         if (bet > (wallet * 1) / 100 / 2) {
+  //           bet = bet / 2;
+  //         }
+  //         if (bet > 300) {
+  //           bet = (wallet * 1) / 100;
+  //         }
+  //         // bet = bet * 2;
+  //       } else {
+  //         wallet = wallet - bet;
+  //         lossCount += 1;
+  //         if (lossCount > mostLossNum) {
+  //           mostLossNum = lossCount;
+  //         }
+  //         // let lessMonyy = (wallet * 50) / 100;
+  //         // console.log(lessMonyy);
+  //         // if (bet > lessMonyy) {
+  //         //   bet = initialBet;
+  //         // }
+  //         // if (bet > 300) {
+  //         //   bet = bet / 2;
+  //         // } else {
+  //         //   bet *= 1.5;
+  //         // }
+  //         bet *= 1.5;
+  //       }
+  //       winRate = (winCount / j) * 100;
+  //       walletArr.push(wallet);
+  //       historyObj = {
+  //         initialBet: initialBet,
+  //         tournament: i,
+  //         game: j,
+  //         result: winFlag,
+  //         bet: Math.round(bet),
+  //         wallet: Math.round(wallet),
+  //         walletOut: Math.round(walletOut),
+  //         winRate: Math.round(winRate),
+  //         mostLossNum: mostLossNum,
+  //       };
+  //       history.push(historyObj);
+  //       // console.log("wallet:", wallet);
+  //       // console.log("bet:", bet);
+  //     }
+  //     // console.log("walletOut:", wallet);
+
+  //     // console.log("historyObj:", historyObj);
+  //     bet = initialBet;
+  //     winFlag = null;
+  //   }
+  // };
+
+  // simulateTournament(500);
 
   const option = {
     xAxis: {
       type: "category",
-      data: gameSetArr,
+      data: tradeNumber,
     },
     yAxis: {
       type: "value",
@@ -167,7 +232,7 @@ const Calculator = () => {
         <CardHeader className="flex p-0 mb-6 text-asiatech-gray-800">
           <ServerIcon className="w-6 h-6 ml-2" />
           <span className="font-extrabold text-base">
-            بیشترین مقدار شارژ کیف پول
+            ماشین حساب مدریت سرمایه و ریسک
           </span>
         </CardHeader>
 
@@ -185,8 +250,7 @@ const Calculator = () => {
           }}
         >
           <TableHeader>
-            <TableColumn key="date"> شماره بازی </TableColumn>
-            <TableColumn key="count"> شماره دست</TableColumn>
+            <TableColumn key="count"> شناسه</TableColumn>
             <TableColumn key="count"> نتیجه بازی</TableColumn>
             <TableColumn key="count"> نرخ برد</TableColumn>
             <TableColumn key="count"> مقدار شرط</TableColumn>
@@ -203,10 +267,9 @@ const Calculator = () => {
             {history?.map((data: IbetTable, index: number) => {
               return (
                 <TableRow className="bordertabel" key={index}>
-                  <TableCell>{data.tournament}</TableCell>
-                  <TableCell>{data.game}</TableCell>
+                  <TableCell>{data?.id}</TableCell>
                   <TableCell>
-                    {data?.result == "W" ? (
+                    {data?.result == "w" ? (
                       <span className="p-4 bg-asiatech-green-500 rounded-2xl ">
                         {data?.result}
                       </span>
