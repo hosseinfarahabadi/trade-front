@@ -1,0 +1,9 @@
+{
+  "disks": [
+    {
+      "name": "front",
+      "mountTo": "/app/.tmp"
+    }
+  ],
+  "app": "front-calc"
+}
