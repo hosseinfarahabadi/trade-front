@@ -119,6 +119,13 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
         title: "ماشین حساب",
         icon: <MonitorChartIcon className="w-6 h-6" />,
       },
+      {
+        isShow: true,
+        name: "smooth",
+        path: "/smooth",
+        title: "مدریت سرمایه",
+        icon: <MonitorChartIcon className="w-6 h-6" />,
+      },
       // {
       //   path: 1,
       //   title: "اطلاع رسانی",

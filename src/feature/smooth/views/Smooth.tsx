@@ -205,7 +205,7 @@ const Calculator = () => {
           }}
         >
           <TableHeader>
-            <TableColumn key="count"> شناسه</TableColumn>
+            {/* <TableColumn key="count"> شناسه</TableColumn> */}
             <TableColumn key="count"> نتیجه بازی</TableColumn>
             <TableColumn key="count"> نرخ برد</TableColumn>
             <TableColumn key="count"> مقدار شرط</TableColumn>
