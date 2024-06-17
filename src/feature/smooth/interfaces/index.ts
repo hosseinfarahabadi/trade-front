@@ -14,6 +14,15 @@ export interface ITradeObject {
     drowDown: number;
 
 }
+export interface IformData {
+  
+  risk:string;
+  initialWallet:string;
+  winRate:string;
+  riskToRiward:string;
+  positionNumber:string;
+
+}
 
 export interface Attributes {
   volume: number

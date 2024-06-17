@@ -1,11 +1,7 @@
 import ServerIcon from "@/assets/icons/ServerIcon";
 import {
-  Button,
   Card,
   CardHeader,
-  Input,
-  Select,
-  SelectItem,
   Spinner,
   Table,
   TableBody,
@@ -17,8 +13,6 @@ import {
 import ReactECharts from "echarts-for-react";
 import { ITradeObject } from "../interfaces";
 import { useSmooth } from "../hooks/useSmooth";
-import { riskToRewardData } from "../helper/data";
-import React, { useEffect } from "react";
 
 interface IbetTable {
   // id: number;
@@ -33,34 +27,19 @@ interface IbetTable {
   walletOut: number;
 }
 const Calculator = () => {
-  const {
-    loading,
-    tradeObject,
-    positionNumber,
-    setPositionNumber,
-    riskToRiward,
-    setRiskToRiward,
-    winRate,
-    setWinRate,
-    risk,
-    setRisk,
-    initialWallet,
-    setWinitialWallet,
-    handleSubmit,
-    getValues,
-    setValue,
-  } = useSmooth();
-  console.log(getValues());
+  const { loading, tradeObject } = useSmooth();
+  console.log(tradeObject);
+
   let winFlag: any = null;
   let cash = 0;
-  let wallet = initialWallet;
-  const initialBet = (wallet * risk) / 100;
+  let wallet = 1000;
+  const initialBet = 10;
   let walletOut = 0;
   let bet = initialBet;
 
   let tournament = 1;
   let winCount = 0;
-  let winRatePer = 0;
+  let winRate = 0;
   let gameSet = 0;
   let lossCount = 0;
   let mostLossNum = 0;
@@ -83,10 +62,75 @@ const Calculator = () => {
     const newResult = random < 0.5 ? "h" : "t";
     return newResult;
   };
-  useEffect(() => {
-    simulateTournament(positionNumber);
-  }, []);
+  // const simulateTournament = (gameRounds: any) => {
+  //   for (let i = 1; i <= tournament; i++) {
+  //     for (let j = 1; j <= gameRounds; j++) {
+  //       gameSet += 1;
+  //       gameSetArr.push(gameSet);
+  //       //toss a coin
+  //       const res = tossCoin();
+  //       //check res
+  //       if (side === res) {
+  //         // console.log("win");
+  //         winFlag = "W";
+  //       } else {
+  //         // console.log("lose");
+  //         winFlag = "L";
+  //       }
 
+  //       if (winFlag == "W") {
+  //         lossCount = 0;
+  //         winCount += 1;
+  //         wallet = wallet + bet + bet;
+  //         if (bet > (wallet * 1) / 100 / 2) {
+  //           bet = bet / 2;
+  //         }
+  //         if (bet > 300) {
+  //           bet = (wallet * 1) / 100;
+  //         }
+  //         // bet = bet * 2;
+  //       } else {
+  //         wallet = wallet - bet;
+  //         lossCount += 1;
+  //         if (lossCount > mostLossNum) {
+  //           mostLossNum = lossCount;
+  //         }
+  //         // let lessMonyy = (wallet * 50) / 100;
+  //         // console.log(lessMonyy);
+  //         // if (bet > lessMonyy) {
+  //         //   bet = initialBet;
+  //         // }
+  //         // if (bet > 300) {
+  //         //   bet = bet / 2;
+  //         // } else {
+  //         //   bet *= 1.5;
+  //         // }
+  //         bet *= 1.5;
+  //       }
+  //       winRate = (winCount / j) * 100;
+  //       walletArr.push(wallet);
+  //       historyObj = {
+  //         initialBet: initialBet,
+  //         tournament: i,
+  //         game: j,
+  //         result: winFlag,
+  //         bet: Math.round(bet),
+  //         wallet: Math.round(wallet),
+  //         walletOut: Math.round(walletOut),
+  //         winRate: Math.round(winRate),
+  //         mostLossNum: mostLossNum,
+  //       };
+  //       history.push(historyObj);
+  //       // console.log("wallet:", wallet);
+  //       // console.log("bet:", bet);
+  //     }
+  //     // console.log("walletOut:", wallet);
+
+  //     // console.log("historyObj:", historyObj);
+  //     bet = initialBet;
+  //     winFlag = null;
+  //   }
+  // };
   const simulateTournament = (gameRounds: any) => {
     for (let i = 1; i <= tournament; i++) {
       for (let j = 1; j <= gameRounds; j++) {
@@ -106,11 +150,7 @@ const Calculator = () => {
         if (winFlag == "W") {
           lossCount = 0;
           winCount += 1;
-          // initialWallet, setWinitialWallet;
-          // setWinitialWallet(
-          //   (prevWallet) => prevWallet + bet * riskToRiward - 0.5
-          // );
-          wallet = wallet + bet * riskToRiward - 0.5;
+          wallet = wallet + bet;
           if (bet > (wallet * 1) / 100 / 2) {
             bet = bet / 2;
           }
@@ -119,7 +159,6 @@ const Calculator = () => {
           }
           // bet = bet * 2;
         } else {
-          // setWinitialWallet((prevWallet) => prevWallet - bet - 0.5);
           wallet = wallet - bet;
           lossCount += 1;
           if (lossCount > mostLossNum) {
@@ -137,7 +176,7 @@ const Calculator = () => {
           // }
           bet *= 1.5;
         }
-        winRatePer = (winCount / j) * 100;
+        winRate = (winCount / j) * 100;
         walletArr.push(wallet);
         historyObj = {
           initialBet: initialBet,
@@ -147,7 +186,7 @@ const Calculator = () => {
           bet: Math.round(bet),
           wallet: Math.round(wallet),
           walletOut: Math.round(walletOut),
-          winRate: Math.round(winRatePer),
+          winRate: Math.round(winRate),
           mostLossNum: mostLossNum,
         };
         history.push(historyObj);
@@ -161,8 +200,8 @@ const Calculator = () => {
       winFlag = null;
     }
   };
-  simulateTournament(positionNumber);
-  // simulateTournament(600);
+
+  simulateTournament(600);
 
   const option = {
     xAxis: {
@@ -214,143 +253,11 @@ const Calculator = () => {
   return (
     <>
       <Card className="px-4 py-6 mt-6 overflow-visible">
-        <CardHeader className="flex items-start flex-col p-0 mb-6 text-asiatech-gray-800">
-          <div className="flex ">
-            <ServerIcon className="w-6 h-6 ml-2" />
-            <span className="font-extrabold text-base">
-              ماشین حساب مدریت سرمایه و ریسک
-            </span>
-          </div>
-          <div className="w-full grid grid-cols-3 gap-3">
-            <div className="w-full mt-4">
-              <label className="text-asiatech-gray-700" dir="ltr">
-                R:R
-              </label>
-              <Input
-                variant="bordered"
-                type="text"
-                placeholder="ریسک به ریوارد"
-                className="w-full mt-2"
-                // value={getValues("riskToRiward")}
-                classNames={{
-                  input: "placeholder:text-asiatech-gray-500",
-                  inputWrapper: [
-                    "backdrop-saturate-200",
-                    "focus-within:!border-asiatech-gray-500 !border-1",
-                    "inputWrapper: h-[40px]",
-                  ],
-                }}
-                onChange={(e: any) => {
-                  setValue("riskToRiward", e.target.value);
-                  // setRiskToRiward(e.target.value);
-                }}
-              />
-            </div>
-            <div className="w-full mt-4">
-              <label className="text-asiatech-gray-700" dir="ltr">
-                winRate
-              </label>
-              <Input
-                variant="bordered"
-                type="text"
-                placeholder="نرخ برد"
-                className="w-full mt-2"
-                // value={getValues("winRate")}
-                classNames={{
-                  input: "placeholder:text-asiatech-gray-500",
-                  inputWrapper: [
-                    "backdrop-saturate-200",
-                    "focus-within:!border-asiatech-gray-500 !border-1",
-                    "inputWrapper: h-[40px]",
-                  ],
-                }}
-                onChange={(e: any) => {
-                  setValue("winRate", e.target.value);
-                  // setWinRate(e.target.value);
-                }}
-              />
-            </div>
-            <div className="w-full mt-4">
-              <label className="text-asiatech-gray-700" dir="ltr">
-                risk
-              </label>
-              <Input
-                variant="bordered"
-                type="text"
-                placeholder="میزان ریسک"
-                className="w-full mt-2"
-                // value={getValues("risk")}
-                classNames={{
-                  input: "placeholder:text-asiatech-gray-500",
-                  inputWrapper: [
-                    "backdrop-saturate-200",
-                    "focus-within:!border-asiatech-gray-500 !border-1",
-                    "inputWrapper: h-[40px]",
-                  ],
-                }}
-                onChange={(e: any) => {
-                  setValue("risk", e.target.value);
-                  // setRisk(e.target.value);
-                }}
-              />
-            </div>
-            <div className="w-full mt-4">
-              <label className="text-asiatech-gray-700" dir="ltr">
-                wallet
-              </label>
-              <Input
-                variant="bordered"
-                type="text"
-                placeholder="کیف پول"
-                className="w-full mt-2"
-                // value={getValues("initialWallet")}
-                classNames={{
-                  input: "placeholder:text-asiatech-gray-500",
-                  inputWrapper: [
-                    "backdrop-saturate-200",
-                    "focus-within:!border-asiatech-gray-500 !border-1",
-                    "inputWrapper: h-[40px]",
-                  ],
-                }}
-                onChange={(e: any) => {
-                  setValue("initialWallet", e.target.value);
-                  // setWinitialWallet(e.target.value);
-                }}
-              />
-            </div>
-            <div className="w-full mt-4">
-              <label className="text-asiatech-gray-700" dir="ltr">
-                position number
-              </label>
-              <Input
-                variant="bordered"
-                type="text"
-                placeholder="تعداد پوزیشن"
-                className="w-full mt-2"
-                // value={getValues("positionNumber")}
-                classNames={{
-                  input: "placeholder:text-asiatech-gray-500",
-                  inputWrapper: [
-                    "backdrop-saturate-200",
-                    "focus-within:!border-asiatech-gray-500 !border-1",
-                    "inputWrapper: h-[40px]",
-                  ],
-                }}
-                onChange={(e: any) => {
-                  setValue("positionNumber", e.target.value);
-                  // setValue("user", e.target.value, { shouldValidate: true });
-                  // setPositionNumber(e.target.value);
-                }}
-              />
-            </div>
-          </div>
-          <Button
-            color="primary"
-            className="text-white mt-4"
-            onClick={() => handleSubmit()}
-          >
-            اعمال
-          </Button>
+        <CardHeader className="flex p-0 mb-6 text-asiatech-gray-800">
+          <ServerIcon className="w-6 h-6 ml-2" />
+          <span className="font-extrabold text-base">
+            ماشین حساب مدریت سرمایه و ریسک
+          </span>
         </CardHeader>
 
         <Table
