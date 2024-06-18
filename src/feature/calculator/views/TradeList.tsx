@@ -14,11 +14,11 @@ import {
   TableRow,
   useDisclosure,
 } from "@nextui-org/react";
-import { useTradeList } from "../hooks/useCalculator";
+import { useCalculator } from "../hooks/useCalculator";
 import { ITradeHistory } from "../interfaces";
 
 const TradeList = () => {
-  const { tableData, loading, page, setPage, totalPage } = useTradeList();
+  const { tableData, loading, page, setPage, totalPage } = useCalculator();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   console.log(tableData);
   return (
