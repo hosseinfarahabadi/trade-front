@@ -2,7 +2,7 @@ function Body({ children }: { children: React.ReactNode }) {
   return (
     <>
       <main className="w-full h-full">
-        <section className="w-full h-16 bg-asiatech-darkblue-903"></section>
+        <section className="w-full h-16 bg-asiatech-gray-100"></section>
         <section className="w-full h-full px-6 -mt-12">{children}</section>
       </main>
     </>

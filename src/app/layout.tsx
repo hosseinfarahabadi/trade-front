@@ -26,7 +26,7 @@ export default function RootLayout({
         <link rel="icon" href="/next.svg" sizes="any" />
         <title>admin</title>
       </head>
-      <body className="bg-[#F9FAFB] min-h-screen">
+      <body className="bg-asiatech-gray-100 min-h-screen">
         <NextUIProviderIndex>
           <SidebarComponent open={open} setOpen={setOpen} />
           <div

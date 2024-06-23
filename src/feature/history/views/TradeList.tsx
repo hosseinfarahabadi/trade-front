@@ -26,7 +26,7 @@ const TradeList = () => {
       <Card className="px-4 py-6 mt-6 overflow-visible">
         <CardHeader className="flex flex-col lg:flex-row justify-between p-0 mb-6 text-asiatech-gray-800">
           <div className="flex gap-2">
-            <ServerIcon className="w-6 h-6 ml-2" />
+            {/* <ServerIcon className="w-6 h-6 ml-2" /> */}
             <span className="font-extrabold text-base">نتایج معاملات</span>
           </div>
         </CardHeader>
@@ -61,9 +61,9 @@ const TradeList = () => {
           <TableBody
             loadingContent={<Spinner />}
             isLoading={loading}
-            emptyContent={
-              loading ? " " : <EmptyState text="اطلاعاتی وجود ندارد" />
-            }
+            // emptyContent={
+            //   loading ? " " : <EmptyState text="اطلاعاتی وجود ندارد" />
+            // }
           >
             {tableData &&
               tableData?.map((data: ITradeHistory, index: number) => {
