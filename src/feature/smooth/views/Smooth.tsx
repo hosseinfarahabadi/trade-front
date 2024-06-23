@@ -218,7 +218,6 @@ const Calculator = () => {
       <Card className="px-4 py-6 mt-6 overflow-visible">
         <CardHeader className="flex items-start flex-col p-0 mb-6 text-asiatech-gray-800">
           <div className="flex ">
-            <ServerIcon className="w-6 h-6 ml-2" />
             <span className="font-extrabold text-base">
               ماشین حساب مدریت سرمایه و ریسک
             </span>

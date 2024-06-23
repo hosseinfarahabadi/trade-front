@@ -20,6 +20,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
 import { ISidebarMenu, TRoutes } from "../interface/interfaces";
+import DiskIcon from "@/assets/icons/DiskIcon";
+import CrossIcon from "@/assets/icons/CrossIcon";
+import FileIcon from "@/assets/icons/FileIcon";
+import GearIcon from "@/assets/icons/GearIcon";
 
 function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
   const pathname = usePathname();
@@ -110,21 +114,21 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
         name: "trade",
         path: "/",
         title: "نتایج ترید",
-        icon: <Datacentericon className="w-6 h-6" />,
+        icon: <DiskIcon className="w-6 h-6" />,
       },
       {
         isShow: true,
         name: "calculator",
         path: "/calculator",
         title: "ماشین حساب",
-        icon: <MonitorChartIcon className="w-6 h-6" />,
+        icon: <FileIcon className="w-6 h-6" />,
       },
       {
         isShow: true,
         name: "smooth",
         path: "/smooth",
         title: "مدریت سرمایه",
-        icon: <MonitorChartIcon className="w-6 h-6" />,
+        icon: <GearIcon className="w-6 h-6" />,
       },
       // {
       //   path: 1,

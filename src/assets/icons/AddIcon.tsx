@@ -1,8 +1,8 @@
 export interface addiconInterface {
-    className: string;
-    fill?: string;
-  }
-  
+  className: string;
+  fill?: string;
+}
+
 const AddIcon = ({ className, fill }: addiconInterface) => {
   return (
     <>
