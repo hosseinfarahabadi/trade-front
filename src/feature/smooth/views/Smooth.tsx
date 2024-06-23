@@ -80,7 +80,7 @@ const Calculator = () => {
 
   const tossCoin = () => {
     const random = Math.random();
-    const newResult = random < 0.5 ? "h" : "t";
+    const newResult = random < winRate / 100 ? "h" : "t";
     return newResult;
   };
   useEffect(() => {
@@ -111,7 +111,7 @@ const Calculator = () => {
           //   (prevWallet) => prevWallet + bet * riskToRiward - 0.5
           // );
           wallet = wallet + bet * riskToRiward - 0.5;
-          if (bet > (wallet * 1) / 100 / 2) {
+          if (bet > (wallet * 1) / 100) {
             bet = bet / 2;
           }
           if (bet > 300) {
@@ -135,7 +135,10 @@ const Calculator = () => {
           // } else {
           //   bet *= 1.5;
           // }
-          bet *= 1.5;
+          // if (lossCount == 5) {
+          //   bet = (wallet * 2) / 100;
+          // }
+          bet *= 1.6;
         }
         winRatePer = (winCount / j) * 100;
         walletArr.push(wallet);
@@ -163,7 +166,6 @@ const Calculator = () => {
   };
   simulateTournament(positionNumber);
   // simulateTournament(600);
-
   const option = {
     xAxis: {
       type: "category",
@@ -421,7 +423,7 @@ const Calculator = () => {
         </Table>
       </Card>
 
-      <ReactECharts option={option} />
+      <ReactECharts style={{ height: "600px" }} option={option} />
     </>
   );
 };
