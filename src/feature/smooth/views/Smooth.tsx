@@ -15,10 +15,8 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import ReactECharts from "echarts-for-react";
-import { ITradeObject } from "../interfaces";
-import { useSmooth } from "../hooks/useSmooth";
-import { riskToRewardData } from "../helper/data";
 import React, { useEffect } from "react";
+import { useSmooth } from "../hooks/useSmooth";
 
 interface IbetTable {
   // id: number;

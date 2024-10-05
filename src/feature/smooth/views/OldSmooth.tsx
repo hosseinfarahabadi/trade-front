@@ -11,7 +11,6 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import ReactECharts from "echarts-for-react";
-import { ITradeObject } from "../interfaces";
 import { useSmooth } from "../hooks/useSmooth";
 
 interface IbetTable {

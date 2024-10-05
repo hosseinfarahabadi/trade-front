@@ -3,10 +3,6 @@
 
 
 
-// export interface ITradeHistory {
-//   id: number
-//   attributes: Attributes
-// }
 export interface ITradeHistory {
   id: number
   volume: number
@@ -36,7 +32,6 @@ export interface Users {
   createdAt: string
   updatedAt: string
 }
-
 export interface ITradeObject {
   
    id: number;
@@ -46,11 +41,8 @@ export interface ITradeObject {
 }
 export interface IformData {
   
-  risk:string;
-  initialWallet:string;
-  winRate:string;
-  riskToRiward:string;
-  positionNumber:string;
+  identifier:string;
+  password:string;
 
 }
 

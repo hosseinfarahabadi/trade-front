@@ -71,14 +71,14 @@ const TradeList = () => {
                   <TableRow className="bordertabel" key={index}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{data?.id}</TableCell>
-                    <TableCell>{data?.attributes.volume}</TableCell>
-                    <TableCell>{data?.attributes.result}</TableCell>
-                    <TableCell>{data?.attributes.takeProfit}</TableCell>
-                    <TableCell>{data?.attributes.stop}</TableCell>
-                    <TableCell>{data?.attributes.RR}</TableCell>
-                    <TableCell>{data?.attributes.drowDown}</TableCell>
-                    <TableCell>{data?.attributes.sign}</TableCell>
-                    <TableCell>{data?.attributes.buySell}</TableCell>
+                    <TableCell>{data?.volume}</TableCell>
+                    <TableCell>{data?.result}</TableCell>
+                    <TableCell>{data?.takeProfit}</TableCell>
+                    <TableCell>{data?.stop}</TableCell>
+                    <TableCell>{data?.RR}</TableCell>
+                    <TableCell>{data?.drowDown}</TableCell>
+                    <TableCell>{data?.sign}</TableCell>
+                    <TableCell>{data?.buySell}</TableCell>
                   </TableRow>
                 );
               })}

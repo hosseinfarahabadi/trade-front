@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { DateObject } from "react-multi-date-picker";
-import { getHighestAmount, getHighestAmountExcel } from "../helper/controller";
+import {  getTradeHistory } from "../helper/controller";
 import { ITradeHistory, ITradeObject } from "../interfaces";
 
 export const useCalculator = () => {
@@ -26,13 +26,10 @@ export const useCalculator = () => {
     // }
 
     useEffect(() => {
-        setTableData([])
-        if (startDate) {
+        
+        getTradeHistory(setTableData, setLoading)
 
-            getHighestAmount(page, perPage, setTableData, setLoading, setTotalPage)
-        }
-
-    }, [page, perPage])
+    }, [])
     useEffect(() => {
         if (tableData.length > 0) {
             const newTemp = tableData.map((item:ITradeHistory) =>({

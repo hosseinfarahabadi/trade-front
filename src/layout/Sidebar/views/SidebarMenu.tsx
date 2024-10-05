@@ -17,7 +17,7 @@ import SimpleArrowIcon from "@/assets/icons/SimpleArrowIcon";
 import TodoListIcon from "@/assets/icons/TodoListIcon";
 import CardsIcon from "@/assets/icons/cardsIcon";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { ISidebarMenu, TRoutes } from "../interface/interfaces";
 import DiskIcon from "@/assets/icons/DiskIcon";
@@ -27,6 +27,13 @@ import GearIcon from "@/assets/icons/GearIcon";
 
 function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
   const pathname = usePathname();
+  const router = useRouter();
+  const handleLogout = () => {
+    // Example log out logic
+    // Clear token from localStorage or make an API call
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
   const id =
     typeof window !== "undefined" ? window.localStorage.getItem("id") : "";
   const [indexOf, setIndexOf] = useState<{ index: number; open: boolean }>({
@@ -121,6 +128,13 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
         name: "calculator",
         path: "/calculator",
         title: "ماشین حساب",
+        icon: <FileIcon className="w-6 h-6" />,
+      },
+      {
+        isShow: true,
+        name: "history",
+        path: "/history",
+        title: "ژورنال",
         icon: <FileIcon className="w-6 h-6" />,
       },
       {
@@ -384,6 +398,12 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
           }
         })}
       </ul>
+      <button
+        onClick={handleLogout}
+        className="mt-4 px-4 py-2 w-60 bg-red-500 text-white rounded hover:bg-red-600 transition duration-300"
+      >
+        Log Out
+      </button>
     </>
   );
 }

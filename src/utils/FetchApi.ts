@@ -2,10 +2,10 @@ import redaxios, { Options, Response } from "redaxios";
 export type TResponse<T> = Response<T>;
 export type OptionsType = Options;
 
-const access = typeof window !== "undefined" ? window.localStorage.getItem("access") : "";
+const access = typeof window !== "undefined" ? window.localStorage.getItem("token") : "";
 const defaultOpTion = {
   headers: {
-    // authorization: "Bearer " + access,
+    authorization: "Bearer " + access,
   },
 };
 
