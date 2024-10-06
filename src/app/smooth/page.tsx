@@ -1,6 +1,6 @@
 "use client";
 
-import { Smooth } from "@/feature/smooth";
+import { Smooth } from "../../feature/smooth";
 
 export default function Page() {
   return (

@@ -1,11 +1,6 @@
 // pages/login.tsx
 "use client";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-// import { useRouter } from "next/router";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { LoginForm } from "../../../../types/Types";
+
 import { useLogin } from "../hooks/useLogin";
 
 const Login: React.FC = () => {

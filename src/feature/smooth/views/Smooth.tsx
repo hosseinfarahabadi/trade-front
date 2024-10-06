@@ -30,7 +30,7 @@ interface IbetTable {
   winRate: number;
   walletOut: number;
 }
-const Calculator = () => {
+const Smooth = () => {
   const {
     loading,
     tradeObject,
@@ -424,4 +424,4 @@ const Calculator = () => {
     </>
   );
 };
-export default Calculator;
+export default Smooth;

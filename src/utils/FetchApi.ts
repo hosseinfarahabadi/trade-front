@@ -3,9 +3,10 @@ export type TResponse<T> = Response<T>;
 export type OptionsType = Options;
 
 const access = typeof window !== "undefined" ? window.localStorage.getItem("token") : "";
+console.log(access)
 const defaultOpTion = {
   headers: {
-    authorization: "Bearer " + access,
+     authorization: "Bearer " + access ?? '',
   },
 };
 
