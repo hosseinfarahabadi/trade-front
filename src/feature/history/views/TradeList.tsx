@@ -61,9 +61,9 @@ const TradeList = () => {
           <TableBody
             loadingContent={<Spinner />}
             isLoading={loading}
-            // emptyContent={
-            //   loading ? " " : <EmptyState text="اطلاعاتی وجود ندارد" />
-            // }
+            emptyContent={
+              loading ? " " : <EmptyState text="اطلاعاتی وجود ندارد" />
+            }
           >
             {tableData &&
               tableData?.map((data: ITradeHistory, index: number) => {

@@ -34,7 +34,7 @@ export const useSmooth = () => {
     const methods = useForm<IformData>({
         mode: "onSubmit",
         values: {
-            risk: "1", initialWallet: "1000", winRate: "50", riskToRiward: "2", positionNumber:"500"
+            risk: "1", initialWallet: "1000", winRate: "50", riskToRiward: "2", positionNumber:"50"
         }
     });
     const {
@@ -46,25 +46,25 @@ export const useSmooth = () => {
         watch,
         getValues,
     } = methods
-    useEffect(() => {
-        setTableData([])
-        if (startDate) {
+    // useEffect(() => {
+    //     setTableData([])
+    //     if (startDate) {
 
-            getHighestAmount(page, perPage, setTableData, setLoading, setTotalPage)
-        }
+    //         getHighestAmount(page, perPage, setTableData, setLoading, setTotalPage)
+    //     }
 
-    }, [page, perPage])
-    useEffect(() => {
-        if (tableData.length > 0) {
-            const newTemp = tableData.map((item:ITradeHistory) =>({
-                id: item.id,
-                result: item.result,
-                drowDown: item.drowDown,
-              }))
-              setTradeObject(newTemp)
-        }
+    // }, [page, perPage])
+    // useEffect(() => {
+    //     if (tableData.length > 0) {
+    //         const newTemp = tableData.map((item:ITradeHistory) =>({
+    //             id: item.id,
+    //             result: item.result,
+    //             drowDown: item.drowDown,
+    //           }))
+    //           setTradeObject(newTemp)
+    //     }
 
-    }, [tableData])
+    // }, [tableData])
 const handleSubmit = () => {
     setRisk(Number(getValues("risk")));
     setPositionNumber(Number(getValues("positionNumber")));

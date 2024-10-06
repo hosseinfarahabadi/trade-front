@@ -3,7 +3,7 @@ import NextUIProviderIndex from "@/layout/NextUIProvider";
 import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 import "react-tooltip/dist/react-tooltip.css";
-import "./globals.css";
+import "../globals.css";
 import { Body } from "@/layout/Body";
 import { NavbarComponent } from "@/layout/Navbar";
 import { SidebarComponent } from "@/layout/Sidebar";
@@ -27,7 +27,17 @@ export default function RootLayout({
         <title>admin</title>
       </head>
       <body className="bg-asiatech-gray-100 min-h-screen">
-        <NextUIProviderIndex>{children}</NextUIProviderIndex>
+        <NextUIProviderIndex>
+          <SidebarComponent open={open} setOpen={setOpen} />
+          <div
+            className={`min-h-screen h-full w-full overflow-hidden transition-all duration-300 main-page ${
+              open ? "pr-56" : "pr-14"
+            }`}
+          >
+            <NavbarComponent />
+            <Body>{children}</Body>
+          </div>
+        </NextUIProviderIndex>
         <Toaster position="top-right" />
       </body>
     </html>

@@ -1,11 +1,11 @@
 "use client";
 
-import { Smooth } from "../../feature/smooth";
+import { TradeList } from "@/feature/history";
 
 export default function Page() {
   return (
     <>
-      <Smooth />
+      <TradeList />
     </>
   );
 }

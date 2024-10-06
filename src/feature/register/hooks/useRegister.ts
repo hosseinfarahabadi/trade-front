@@ -2,11 +2,11 @@
 import { useEffect, useState } from "react";
 import { IformData, ITradeHistory, ITradeObject } from "../interfaces";
 import { useForm } from "react-hook-form";
-import { login } from "../helper/controller";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/store/user";
+import { registration } from "../helper/controller";
 
-export const useLogin = () => {
+export const useRegister = () => {
     const router = useRouter();
 
     const [loading, setLoading] = useState<boolean>(false)
@@ -18,16 +18,20 @@ export const useLogin = () => {
     const methods = useForm<IformData>({
         mode: "onSubmit",
         values: {
-            identifier : "", password: ""
+            name : "", password: "", email:"",username:""
         }
     });
-    const onLoginHandler = () => {
+    const onRegisterHandler = () => {
         const body = {
-            identifier : watch("identifier"),
-            password : watch("password")
+            
+                name: watch("name"),
+                password: watch("password"),
+                email: watch("email"),
+                username: watch("username")
+            
         };
 console.log(body)
-        login(body,router,setUser);
+        registration(body,router,setUser);
     }
     const {
         register,
@@ -46,7 +50,7 @@ console.log(body)
     // }, [tableData])
 
     return {
-        onLoginHandler,
+        onRegisterHandler,
         setValue,
         watch,
         getValues,

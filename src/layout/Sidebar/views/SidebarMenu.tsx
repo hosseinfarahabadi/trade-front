@@ -40,87 +40,94 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
     index: -1,
     open: false,
   });
-  const users: any = {
-    "1132": [
-      "dashboard",
-      "dashboardcdn",
-      "dashboarddns",
-      "datacenter",
-      "ipManagement",
-      "switchManagement",
-      "confilict",
-      "notification",
-      "marketplace",
-      "rate",
-      "errorManagement",
-      "dashboardfinance",
-      "contactCustomer",
-      "campaignManagement",
-      "promotion",
-      "documention",
-      "logout",
-      "reports",
-      "dashboardObject",
-    ], // ahmadpanah
-    "26813": [
-      "dashboard",
-      "dashboardcdn",
-      "dashboarddns",
-      "datacenter",
-      "confilict",
-      "notification",
-      "marketplace",
-      "rate",
-      "errorManagement",
-      "dashboardfinance",
-      "contactCustomer",
-      "campaignManagement",
-      "promotion",
-      "documention",
-      "logout",
-    ], // sohrabi
-    "39758": [
-      "dashboard",
-      "dashboardcdn",
-      "dashboarddns",
-      "datacenter",
-      "confilict",
-      "notification",
-      "marketplace",
-      "rate",
-      "errorManagement",
-      "dashboardfinance",
-      "contactCustomer",
-      "campaignManagement",
-      "promotion",
-      "documention",
-      "logout",
-    ], // sohrabi
-    "4004": ["dashboard", "dashboardfinance", "logout"], // abolhasani
-    "51691": ["dashboard", "dashboardfinance", "logout"], // neishabouri
-    "21976": ["dashboarddns", "logout"], // faghihi
-    "63908": ["dashboarddns", "logout"], // tajik
-    "49433": ["dashboarddns", "logout"], // royanian
-    "73241": ["dashboard", "notification", "logout"], // masror
-    "56376": [
-      "dashboard",
-      "notification",
-      "logout",
-      "campaignManagement",
-      "promotion",
-      "datacenter",
-    ], // ghari
-    "73624": ["dashboard", "notification", "logout"], // adibiyan
-    "63965": ["dashboardcdn", "logout"], // ghasemian
-    "71885": ["dashboardcdn", "logout"], // ramezan
-  };
+  // const users: any = {
+  //   "1132": [
+  //     "dashboard",
+  //     "dashboardcdn",
+  //     "dashboarddns",
+  //     "datacenter",
+  //     "ipManagement",
+  //     "switchManagement",
+  //     "confilict",
+  //     "notification",
+  //     "marketplace",
+  //     "rate",
+  //     "errorManagement",
+  //     "dashboardfinance",
+  //     "contactCustomer",
+  //     "campaignManagement",
+  //     "promotion",
+  //     "documention",
+  //     "logout",
+  //     "reports",
+  //     "dashboardObject",
+  //   ], // ahmadpanah
+  //   "26813": [
+  //     "dashboard",
+  //     "dashboardcdn",
+  //     "dashboarddns",
+  //     "datacenter",
+  //     "confilict",
+  //     "notification",
+  //     "marketplace",
+  //     "rate",
+  //     "errorManagement",
+  //     "dashboardfinance",
+  //     "contactCustomer",
+  //     "campaignManagement",
+  //     "promotion",
+  //     "documention",
+  //     "logout",
+  //   ], // sohrabi
+  //   "39758": [
+  //     "dashboard",
+  //     "dashboardcdn",
+  //     "dashboarddns",
+  //     "datacenter",
+  //     "confilict",
+  //     "notification",
+  //     "marketplace",
+  //     "rate",
+  //     "errorManagement",
+  //     "dashboardfinance",
+  //     "contactCustomer",
+  //     "campaignManagement",
+  //     "promotion",
+  //     "documention",
+  //     "logout",
+  //   ], // sohrabi
+  //   "4004": ["dashboard", "dashboardfinance", "logout"], // abolhasani
+  //   "51691": ["dashboard", "dashboardfinance", "logout"], // neishabouri
+  //   "21976": ["dashboarddns", "logout"], // faghihi
+  //   "63908": ["dashboarddns", "logout"], // tajik
+  //   "49433": ["dashboarddns", "logout"], // royanian
+  //   "73241": ["dashboard", "notification", "logout"], // masror
+  //   "56376": [
+  //     "dashboard",
+  //     "notification",
+  //     "logout",
+  //     "campaignManagement",
+  //     "promotion",
+  //     "datacenter",
+  //   ], // ghari
+  //   "73624": ["dashboard", "notification", "logout"], // adibiyan
+  //   "63965": ["dashboardcdn", "logout"], // ghasemian
+  //   "71885": ["dashboardcdn", "logout"], // ramezan
+  // };
   const routes = useMemo(() => {
     let tempRoute: TRoutes[] = [
+      // {
+      //   isShow: true,
+      //   name: "trade",
+      //   path: "/",
+      //   title: "نتایج ترید",
+      //   icon: <DiskIcon className="w-6 h-6" />,
+      // },
       {
         isShow: true,
-        name: "trade",
-        path: "/",
-        title: "نتایج ترید",
+        name: "history",
+        path: "/history",
+        title: "ژورنال",
         icon: <DiskIcon className="w-6 h-6" />,
       },
       {
@@ -128,13 +135,6 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
         name: "calculator",
         path: "/calculator",
         title: "ماشین حساب",
-        icon: <FileIcon className="w-6 h-6" />,
-      },
-      {
-        isShow: true,
-        name: "history",
-        path: "/history",
-        title: "ژورنال",
         icon: <FileIcon className="w-6 h-6" />,
       },
       {
@@ -192,7 +192,7 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
     });
 
     return [...tempRoute];
-  }, [open, mouseHover, pathname, indexOf, id, users]);
+  }, [open, mouseHover, pathname, indexOf, id]);
   // const [routes, setRoutes] = useState<TRoutes[]>([
   //   {
   //     path: "/panel/dashboard",

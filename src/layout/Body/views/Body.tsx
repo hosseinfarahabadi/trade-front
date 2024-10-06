@@ -1,8 +1,15 @@
+import { useUserStore } from "@/store/user";
+
 function Body({ children }: { children: React.ReactNode }) {
+  const user = useUserStore((state) => state.user);
+  console.log(user);
   return (
     <>
       <main className="w-full h-full">
-        <section className="w-full h-16 bg-asiatech-gray-100"></section>
+        <section className="w-full pr-6 mb-8 h-16 bg-asiatech-gray-100 text-xl font-bold text-asiatech-gray-900">
+          <span>خوش آمدید </span> <span>{user?.username} </span>
+          <span>عزیز </span>
+        </section>
         <section className="w-full h-full px-6 -mt-12">{children}</section>
       </main>
     </>

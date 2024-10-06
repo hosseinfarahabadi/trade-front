@@ -2,8 +2,10 @@ import redaxios, { Options, Response } from "redaxios";
 export type TResponse<T> = Response<T>;
 export type OptionsType = Options;
 
-const access = typeof window !== "undefined" ? window.localStorage.getItem("token") : "";
-console.log(access ? access : "")
+let access = typeof window !== "undefined" ? window.localStorage.getItem("token") : "";
+const getToken = () => typeof window !== "undefined" ? window.localStorage.getItem("token") : "";
+
+console.log(getToken())
 const defaultOpTion = {
   headers: {
      authorization: `Bearer ${access ? access : ""} `,
@@ -11,7 +13,13 @@ const defaultOpTion = {
 };
 
 const get = async (link: string, Option?: Options | undefined): Promise<Response<any>> => {
-  return redaxios.get(link, { ...Option, ...defaultOpTion });
+   access = typeof window !== "undefined" ? window.localStorage.getItem("token") : "";
+  const defaultOpTion = {
+    headers: {
+       authorization: `Bearer ${access ? access : ""} `,
+    },
+  };
+  return redaxios.get(link, { ...Option, headers:{...defaultOpTion.headers} });
 };
 
 const post = async (
@@ -30,6 +38,12 @@ const patch = async (
   body: any,
   Option?: Options | undefined
 ): Promise<Response<any>> => {
+  access = typeof window !== "undefined" ? window.localStorage.getItem("token") : "";
+  const defaultOpTion = {
+    headers: {
+       authorization: `Bearer ${access ? access : ""} `,
+    },
+  };
   return redaxios.patch(link, body, {
     ...Option,
     headers: { ...defaultOpTion.headers, ...Option?.headers },
@@ -41,6 +55,12 @@ const put = async (
   body: any,
   Option?: Options | undefined
 ): Promise<Response<any>> => {
+  access = typeof window !== "undefined" ? window.localStorage.getItem("token") : "";
+  const defaultOpTion = {
+    headers: {
+       authorization: `Bearer ${access ? access : ""} `,
+    },
+  };
   return redaxios.put(link, body, {
     ...Option,
     headers: { ...defaultOpTion.headers, ...Option?.headers },
@@ -48,6 +68,12 @@ const put = async (
 };
 
 const deleteMethod = async (link: string, Option?: Options | undefined): Promise<Response<any>> => {
+  access = typeof window !== "undefined" ? window.localStorage.getItem("token") : "";
+  const defaultOpTion = {
+    headers: {
+       authorization: `Bearer ${access ? access : ""} `,
+    },
+  };
   return redaxios.delete(link, {
     ...Option,
     headers: { ...defaultOpTion.headers, ...Option?.headers },
