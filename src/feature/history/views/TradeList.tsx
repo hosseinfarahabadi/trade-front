@@ -2,6 +2,7 @@ import SearchNewIcon from "@/assets/icons/SearchNewIcon";
 import ServerIcon from "@/assets/icons/ServerIcon";
 import EmptyState from "@/components/emptyState/EmptyState";
 import {
+  Button,
   Card,
   CardHeader,
   Pagination,
@@ -16,18 +17,40 @@ import {
 } from "@nextui-org/react";
 import { useTradeList } from "../hooks/useTradeList";
 import { ITradeHistory } from "../interfaces";
+import AddTradeModal from "./AddTradeModal";
 
 const TradeList = () => {
-  const { tableData, loading, page, setPage, totalPage } = useTradeList();
+  const {
+    tableData,
+    loading,
+    page,
+    setPage,
+    totalPage,
+    router,
+    setValue,
+    watch,
+    getValues,
+    handleSubmit,
+    reset,
+  } = useTradeList();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   console.log(tableData);
   return (
     <>
       <Card className="px-4 py-6 mt-6 overflow-visible">
         <CardHeader className="flex flex-col lg:flex-row justify-between p-0 mb-6 text-asiatech-gray-800">
-          <div className="flex gap-2">
+          <div className="w-full flex items-center justify-between gap-2">
             {/* <ServerIcon className="w-6 h-6 ml-2" /> */}
-            <span className="font-extrabold text-base">نتایج معاملات</span>
+            <p className="font-extrabold text-base">نتایج معاملات</p>
+            <Button
+              color="primary"
+              className=""
+              onClick={() => {
+                onOpen();
+              }}
+            >
+              افزودن ترید
+            </Button>
           </div>
         </CardHeader>
 
@@ -71,14 +94,14 @@ const TradeList = () => {
                   <TableRow className="bordertabel" key={index}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{data?.id}</TableCell>
-                    <TableCell>{data?.volume}</TableCell>
-                    <TableCell>{data?.result}</TableCell>
-                    <TableCell>{data?.takeProfit}</TableCell>
-                    <TableCell>{data?.stop}</TableCell>
-                    <TableCell>{data?.RR}</TableCell>
-                    <TableCell>{data?.drowDown}</TableCell>
-                    <TableCell>{data?.sign}</TableCell>
-                    <TableCell>{data?.buySell}</TableCell>
+                    <TableCell>{data?.attributes.volume}</TableCell>
+                    <TableCell>{data?.attributes.result}</TableCell>
+                    <TableCell>{data?.attributes.takeProfit}</TableCell>
+                    <TableCell>{data?.attributes.stop}</TableCell>
+                    <TableCell>{data?.attributes.RR}</TableCell>
+                    <TableCell>{data?.attributes.drowDown}</TableCell>
+                    <TableCell>{data?.attributes.sign}</TableCell>
+                    <TableCell>{data?.attributes.buySell}</TableCell>
                   </TableRow>
                 );
               })}
@@ -111,6 +134,15 @@ const TradeList = () => {
           /> */}
         </div>
       </Card>
+      <AddTradeModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        watch={watch}
+        setValue={setValue}
+        onClick={() => {
+          console.log("first");
+        }}
+      />
     </>
   );
 };

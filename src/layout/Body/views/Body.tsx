@@ -2,7 +2,6 @@ import { useUserStore } from "@/store/user";
 
 function Body({ children }: { children: React.ReactNode }) {
   const user = useUserStore((state) => state.user);
-  console.log(user);
   return (
     <>
       <main className="w-full h-full">

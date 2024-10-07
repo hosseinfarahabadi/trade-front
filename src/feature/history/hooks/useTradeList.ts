@@ -5,13 +5,12 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { DateObject } from "react-multi-date-picker";
 import {  getTradeHistory } from "../helper/controller";
-import { ITradeHistory, ITradeObject } from "../interfaces";
+import { IformData, ITradeHistory, ITradeObject } from "../interfaces";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 
 export const useTradeList = () => {
-    const today = new DateObject().format("YYYY-MM-DD")
-    const todayFa = new DateObject({ calendar: persian, locale: persian_fa }).format("YYYY/MM/DD")
-    const [disableBtn, setDiasableBtn] = useState<boolean>(false);
-    const [excelDisableBtn, setExcelDisableBtn] = useState<boolean>(false)
+    const router = useRouter()
     const [loading, setLoading] = useState<boolean>(false)
     const [page, setPage] = useState<number>(1)
     const [perPage, setPerPage] = useState<number>(10)
@@ -22,12 +21,39 @@ export const useTradeList = () => {
     const [search, setSearch] = useState<string>("");
     const debouncedcSearch = useDebounce<string>(search, 1000);
 
-    const [startDate, setStartDate] = useState<string>(today);
-    const [endDate, setEndDate] = useState<string>(today);
+    const methods = useForm<IformData>({
+        mode: "onSubmit",
+        values: {
+            volume : "", result: "", stop:"",
+            takeProfit:"",
+            RR:"",
+            sign:"",
+            buySell:"",
+            drowDown:"",
+        }
+    });
+    const {
+        register,
+        formState: { errors, isSubmitting },
+        reset,
+        control,
+        setValue,
+        watch,
+        handleSubmit,
+        getValues,
+    } = methods
 
-    // const searchBtnHandler = (selectedPage: number, selectedPerPage: number) => {
-    //     getHighestAmount(selectedPage, selectedPerPage, startDate, endDate, debouncedcSearch, setDiasableBtn, setTableData, setLoading, setTotalPage)
-    // }
+    const onAddTrade = () => {
+        const body = {
+            
+                name: watch("name"),
+                password: watch("password"),
+                email: watch("email"),
+                username: watch("username")
+            
+        };
+        registration(body,router,setUser);
+    }
 
     useEffect(() => {
         
@@ -35,11 +61,11 @@ export const useTradeList = () => {
 
     }, [])
     useEffect(() => {
-        if (tableData.length > 0) {
+        if (Array.isArray(tableData)&&tableData.length > 0) {
             const newTemp = tableData.map((item:ITradeHistory) =>({
                 id: item.id,
-                result: item.result,
-                drowDown: item.drowDown,
+                result: item.attributes.result,
+                drowDown: item.attributes.drowDown,
               }))
               setTradeObject(newTemp)
         }
@@ -58,5 +84,11 @@ export const useTradeList = () => {
         totalPage,
         setTotalPage,
         tradeObject,
+        router,
+        setValue,
+        watch,
+        getValues,
+        handleSubmit,
+        reset
     }
 }

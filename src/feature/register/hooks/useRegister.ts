@@ -21,18 +21,6 @@ export const useRegister = () => {
             name : "", password: "", email:"",username:""
         }
     });
-    const onRegisterHandler = () => {
-        const body = {
-            
-                name: watch("name"),
-                password: watch("password"),
-                email: watch("email"),
-                username: watch("username")
-            
-        };
-console.log(body)
-        registration(body,router,setUser);
-    }
     const {
         register,
         formState: { errors, isSubmitting },
@@ -44,10 +32,18 @@ console.log(body)
         getValues,
     } = methods
 
-    // useEffect(() => {
-        
+    const onRegisterHandler = () => {
+        const body = {
+            
+                name: watch("name"),
+                password: watch("password"),
+                email: watch("email"),
+                username: watch("username")
+            
+        };
+        registration(body,router,setUser);
+    }
 
-    // }, [tableData])
 
     return {
         onRegisterHandler,
