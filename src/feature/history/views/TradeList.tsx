@@ -32,6 +32,7 @@ const TradeList = () => {
     getValues,
     handleSubmit,
     reset,
+    onAddTrade,
   } = useTradeList();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   console.log(tableData);
@@ -121,17 +122,6 @@ const TradeList = () => {
               }}
             />
           )}
-          {/* <SearchModal
-            isOpen={isOpen}
-            onOpenChange={onOpenChange}
-            startDate={startDate}
-            setStartDate={setStartDate}
-            endDate={endDate}
-            setEndDate={setEndDate}
-            onClick={() => {
-              setPage(1);
-            }}
-          /> */}
         </div>
       </Card>
       <AddTradeModal
@@ -140,6 +130,7 @@ const TradeList = () => {
         watch={watch}
         setValue={setValue}
         onClick={() => {
+          onAddTrade();
           console.log("first");
         }}
       />

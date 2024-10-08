@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { DateObject } from "react-multi-date-picker";
-import {  getTradeHistory } from "../helper/controller";
+import {  getTradeHistory, setTradeHistory } from "../helper/controller";
 import { IformData, ITradeHistory, ITradeObject } from "../interfaces";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -24,7 +24,9 @@ export const useTradeList = () => {
     const methods = useForm<IformData>({
         mode: "onSubmit",
         values: {
-            volume : "", result: "", stop:"",
+            volume : "",
+             result: "",
+              stop:"",
             takeProfit:"",
             RR:"",
             sign:"",
@@ -45,14 +47,20 @@ export const useTradeList = () => {
 
     const onAddTrade = () => {
         const body = {
-            
-                name: watch("name"),
-                password: watch("password"),
-                email: watch("email"),
-                username: watch("username")
+            data :{
+
+                volume: watch("volume"),
+                result: watch("result"),
+                stop: watch("stop"),
+                takeProfit: watch("takeProfit"),
+                RR: watch("RR"),
+                sign: watch("sign"),
+                buySell: watch("buySell"),
+                drowDown: watch("drowDown"),
+            }
             
         };
-        registration(body,router,setUser);
+        setTradeHistory(body,setLoading);
     }
 
     useEffect(() => {
@@ -89,6 +97,7 @@ export const useTradeList = () => {
         watch,
         getValues,
         handleSubmit,
-        reset
+        reset,
+        onAddTrade
     }
 }
