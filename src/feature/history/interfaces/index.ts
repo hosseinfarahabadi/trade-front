@@ -1,4 +1,4 @@
-import { UseFormGetValues, UseFormSetValue, UseFormWatch } from "react-hook-form"
+import { UseFormGetValues, UseFormHandleSubmit, UseFormSetValue, UseFormWatch } from "react-hook-form"
 
 
 
@@ -100,6 +100,9 @@ export interface ITradeModal {
   componentToShow?: any;
   onOpenChange: (isOpen: boolean) => void;
   watch: UseFormWatch<IformData>;
+  getValues: UseFormGetValues<IformData>;
+  handleSubmit: any;
+  onAddTrade: Function;
   setValue: UseFormSetValue<IformData>;
   onClick: Function;
 }

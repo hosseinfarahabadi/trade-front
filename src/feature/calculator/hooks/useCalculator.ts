@@ -24,23 +24,37 @@ export const useCalculator = () => {
     // const searchBtnHandler = (selectedPage: number, selectedPerPage: number) => {
     //     getHighestAmount(selectedPage, selectedPerPage, startDate, endDate, debouncedcSearch, setDiasableBtn, setTableData, setLoading, setTotalPage)
     // }
-
+console.log(tableData)
     useEffect(() => {
         
         getTradeHistory(setTableData, setLoading)
 
     }, [])
+
     useEffect(() => {
-        if (tableData.length > 0) {
+        if (Array.isArray(tableData)&&tableData.length > 0) {
             const newTemp = tableData.map((item:ITradeHistory) =>({
                 id: item.id,
-                result: item.result,
-                drowDown: item.drowDown,
+                result: item.attributes.result,
+                drowDown: item.attributes.drowDown,
+                RR: item.attributes.RR,
               }))
               setTradeObject(newTemp)
         }
 
     }, [tableData])
+
+    // useEffect(() => {
+    //     if (tableData.length > 0) {
+    //         const newTemp = tableData.map((item:ITradeHistory) =>({
+    //             id: item.id,
+    //             result: item.result,
+    //             drowDown: item.drowDown,
+    //           }))
+    //           setTradeObject(newTemp)
+    //     }
+
+    // }, [tableData])
 
     return {
         tableData,

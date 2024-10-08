@@ -22,6 +22,7 @@ interface IbetTable {
   wallet: number;
   winRate: number;
   walletOut: number;
+  RR: string;
 }
 const Calculator = () => {
   const { loading, tradeObject } = useCalculator();
@@ -96,6 +97,7 @@ const Calculator = () => {
         wallet: Math.round(wallet),
         walletOut: Math.round(walletOut),
         winRate: Math.round(winRate),
+        RR: trade.RR,
       };
       history.push(historyObj);
     });
@@ -244,7 +246,7 @@ const Calculator = () => {
           removeWrapper
           classNames={{
             th: "text-center",
-            td: "text-center py-6 ",
+            td: "text-right py-6 ",
             thead: "shadow-none",
             table: "text-asiatech-gray-800",
           }}
@@ -255,7 +257,7 @@ const Calculator = () => {
             <TableColumn key="count"> نرخ برد</TableColumn>
             <TableColumn key="count"> مقدار شرط</TableColumn>
             <TableColumn key="count"> کیف پول</TableColumn>
-            <TableColumn key="count"> سود و زیان</TableColumn>
+            <TableColumn key="count"> RR</TableColumn>
           </TableHeader>
           <TableBody
             loadingContent={<Spinner />}
@@ -293,7 +295,7 @@ const Calculator = () => {
                       </span>
                     ) : (
                       <span className="bg-asiatech-red-400 text-asiatech-red-901 p-4 rounded-2xl text-2xl">
-                        {data.walletOut}
+                        {data.RR}
                       </span>
                     )}
                   </TableCell>

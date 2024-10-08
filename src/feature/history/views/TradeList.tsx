@@ -128,10 +128,13 @@ const TradeList = () => {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         watch={watch}
+        getValues={getValues}
         setValue={setValue}
+        handleSubmit={handleSubmit}
+        onAddTrade={onAddTrade}
         onClick={() => {
-          onAddTrade();
-          console.log("first");
+          // onAddTrade();
+          // console.log("first");
         }}
       />
     </>
