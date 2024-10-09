@@ -10,7 +10,6 @@ export const getTradeHistory = (
     setLoading(true)
     AgeTradeHistory().then((res: any) => {
         setLoading(false)
-        console.log(res.data.data)
         setTableData(res.data.data)
     }).catch((err: any) => {
         Notify.error(err.data.error.message);

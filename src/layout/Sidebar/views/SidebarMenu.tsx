@@ -323,7 +323,7 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
                   className={`w-full hover:bg-asiatech-darkblue-400 rounded-14 py-2 ${
                     isActive ? "bg-asiatech-darkblue-400" : ""
                   }`}
-                  key={index}
+                  key={route.title}
                 >
                   <Link
                     className={`w-full flex items-center font-bold mr-1.5  ${
@@ -377,7 +377,7 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
                     {route?.children?.map((child: any, index2: number) => {
                       const isActiveChild = pathname === child.path;
                       return (
-                        <li key={index2} className="pt-2">
+                        <li key={child.title} className="pt-2">
                           <Link
                             className={`w-full flex items-center  ${
                               isActiveChild

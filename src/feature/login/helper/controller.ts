@@ -9,9 +9,7 @@ export const login = (
     setUser:any
 
 ) => {
-    console.log(body)
      ALogin(body).then((res: any) => {
-        console.log(res.data)
         localStorage.setItem("token",res.data.jwt)
         setUser(res.data.user)
         router.push("panel/history")

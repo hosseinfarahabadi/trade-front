@@ -33,9 +33,9 @@ const TradeList = () => {
     handleSubmit,
     reset,
     onAddTrade,
+    errors,
   } = useTradeList();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  console.log(tableData);
   return (
     <>
       <Card className="px-4 py-6 mt-6 overflow-visible">
@@ -63,7 +63,7 @@ const TradeList = () => {
           removeWrapper
           classNames={{
             th: "text-center",
-            td: "text-center py-6 ",
+            td: "text-right py-6 ",
             thead: "shadow-none",
             table: "text-asiatech-gray-800",
           }}
@@ -73,11 +73,11 @@ const TradeList = () => {
               #
             </TableColumn>
             <TableColumn key="date"> شناسه </TableColumn>
-            <TableColumn key="count"> حجم</TableColumn>
+            <TableColumn key="count"> RR</TableColumn>
             <TableColumn key="count"> نتیجه</TableColumn>
+            <TableColumn key="count"> حجم</TableColumn>
             <TableColumn key="count"> صود</TableColumn>
             <TableColumn key="count"> زیان</TableColumn>
-            <TableColumn key="count"> RR</TableColumn>
             <TableColumn key="count"> drowDown</TableColumn>
             <TableColumn key="count"> نماد</TableColumn>
             <TableColumn key="count"> buy/Sell</TableColumn>
@@ -92,17 +92,65 @@ const TradeList = () => {
             {tableData &&
               tableData?.map((data: ITradeHistory, index: number) => {
                 return (
-                  <TableRow className="bordertabel" key={index}>
+                  <TableRow className="bordertabel" key={data.id}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{data?.id}</TableCell>
-                    <TableCell>{data?.attributes.volume}</TableCell>
-                    <TableCell>{data?.attributes.result}</TableCell>
-                    <TableCell>{data?.attributes.takeProfit}</TableCell>
-                    <TableCell>{data?.attributes.stop}</TableCell>
-                    <TableCell>{data?.attributes.RR}</TableCell>
-                    <TableCell>{data?.attributes.drowDown}</TableCell>
-                    <TableCell>{data?.attributes.sign}</TableCell>
-                    <TableCell>{data?.attributes.buySell}</TableCell>
+                    <TableCell>
+                      {data?.attributes.RR ? (
+                        data?.attributes.RR
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data.attributes.result ? (
+                        data?.attributes.result
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data.attributes.volume ? (
+                        data?.attributes.volume
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data?.attributes.takeProfit ? (
+                        data?.attributes.takeProfit
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data?.attributes.stop ? (
+                        data?.attributes.stop
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data?.attributes.drowDown ? (
+                        data?.attributes.drowDown
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data?.attributes.sign ? (
+                        data?.attributes.sign
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data?.attributes.buySell ? (
+                        data?.attributes.buySell
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -130,11 +178,10 @@ const TradeList = () => {
         watch={watch}
         getValues={getValues}
         setValue={setValue}
+        errors={errors}
         handleSubmit={handleSubmit}
-        onAddTrade={onAddTrade}
         onClick={() => {
-          // onAddTrade();
-          // console.log("first");
+          onAddTrade();
         }}
       />
     </>

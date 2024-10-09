@@ -8,6 +8,9 @@ import {  getTradeHistory, setTradeHistory } from "../helper/controller";
 import { IformData, ITradeHistory, ITradeObject } from "../interfaces";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { STrade } from "../interfaces/schema";
+
 
 export const useTradeList = () => {
     const router = useRouter()
@@ -22,10 +25,11 @@ export const useTradeList = () => {
     const debouncedcSearch = useDebounce<string>(search, 1000);
 
     const methods = useForm<IformData>({
+        resolver: zodResolver(STrade),
         mode: "onSubmit",
         values: {
             volume : "",
-             result: "",
+             result: "w",
               stop:"",
             takeProfit:"",
             RR:"",
@@ -60,7 +64,7 @@ export const useTradeList = () => {
             }
             
         };
-        setTradeHistory(body,setLoading);
+        setTradeHistory(body,setLoading, setTableData);
     }
 
     useEffect(() => {
@@ -98,6 +102,7 @@ export const useTradeList = () => {
         getValues,
         handleSubmit,
         reset,
-        onAddTrade
+        onAddTrade,
+        errors
     }
 }

@@ -14,6 +14,7 @@ import ReactECharts from "echarts-for-react";
 
 import { useCalculator } from "../hooks/useCalculator";
 import { ITradeObject } from "../interfaces";
+import NumberSeparator from "@/utils/NumberSeprator";
 
 interface IbetTable {
   id: number;
@@ -26,7 +27,6 @@ interface IbetTable {
 }
 const Calculator = () => {
   const { loading, tradeObject } = useCalculator();
-  console.log(tradeObject);
 
   let winFlag: any = null;
   let cash = 0;
@@ -56,8 +56,7 @@ const Calculator = () => {
 
   const simulateTrade = () => {
     tradeObject.map((trade: ITradeObject, index: number) => {
-      console.log(trade);
-      tradeNumber.push(trade.id);
+      tradeNumber.push(index);
       if (trade.result == "w") {
         lossCount = 0;
         winCount += 1;
@@ -68,15 +67,26 @@ const Calculator = () => {
         if (bet > 300) {
           bet = (wallet * 1) / 100;
         }
+        winRate = (winCount / tradeObject.length) * 100;
+        walletArr.push(wallet);
+        historyObj = {
+          id: trade.id,
+          result: trade.result,
+          bet: Math.round(bet),
+          wallet: Math.round(wallet),
+          walletOut: Math.round(walletOut),
+          winRate: Math.round(winRate),
+          RR: trade.RR,
+        };
+        history.push(historyObj);
         // bet = bet * 2;
-      } else {
+      } else if (trade.result == "l") {
         wallet = wallet - bet;
         lossCount += 1;
         if (lossCount > mostLossNum) {
           mostLossNum = lossCount;
         }
         // let lessMonyy = (wallet * 50) / 100;
-        // console.log(lessMonyy);
         // if (bet > lessMonyy) {
         //   bet = initialBet;
         // }
@@ -86,22 +96,21 @@ const Calculator = () => {
         //   bet *= 1.5;
         // }
         bet *= 1.5;
+        winRate = (winCount / tradeObject.length) * 100;
+        walletArr.push(wallet);
+        historyObj = {
+          id: trade.id,
+          result: trade.result,
+          bet: Math.round(bet),
+          wallet: Math.round(wallet),
+          walletOut: Math.round(walletOut),
+          winRate: Math.round(winRate),
+          RR: trade.RR,
+        };
+        history.push(historyObj);
+      } else {
       }
-
-      winRate = (winCount / tradeObject.length) * 100;
-      walletArr.push(wallet);
-      historyObj = {
-        id: trade.id,
-        result: trade.result,
-        bet: Math.round(bet),
-        wallet: Math.round(wallet),
-        walletOut: Math.round(walletOut),
-        winRate: Math.round(winRate),
-        RR: trade.RR,
-      };
-      history.push(historyObj);
     });
-    console.log(historyObj);
   };
   simulateTrade();
   // const tossCoin = () => {
@@ -242,12 +251,13 @@ const Calculator = () => {
           aria-label="reasons table"
           shadow="none"
           isHeaderSticky
-          className="!p-0 mt-1 overflow-x-auto"
+          className="!p-0 mt-1 overflow-x-auto  "
           removeWrapper
           classNames={{
-            th: "text-center",
-            td: "text-right py-6 ",
-            thead: "shadow-none",
+            th: "text-center !bg-asiatech-blue-500",
+            td: "text-right  ",
+            tr: "!bg-asiatech-blue-500",
+            thead: "shadow-none  ",
             table: "text-asiatech-gray-800",
           }}
         >
@@ -268,36 +278,28 @@ const Calculator = () => {
           >
             {history?.map((data: IbetTable, index: number) => {
               return (
-                <TableRow className="bordertabel" key={index}>
+                <TableRow className="bordertabel" key={data.id}>
                   <TableCell>{data?.id}</TableCell>
                   <TableCell>
                     {data?.result == "w" ? (
-                      <span className="p-4 bg-asiatech-green-500 rounded-2xl ">
+                      <div className="p-4 w-10 bg-asiatech-green-500 rounded-2xl ">
                         {data?.result}
-                      </span>
+                      </div>
                     ) : (
-                      <span className="p-4 bg-asiatech-red-500 rounded-2xl ">
+                      <div className="p-4 w-10 flex justify-center bg-asiatech-red-500 rounded-2xl ">
                         {data?.result}
-                      </span>
+                      </div>
                     )}
                   </TableCell>
                   <TableCell>{data?.winRate}</TableCell>
                   <TableCell className="text-2xl">{data.bet}</TableCell>
-                  <TableCell>
-                    <span className="bg-asiatech-orange-800 text-white p-4 rounded-2xl text-2xl">
-                      {data.wallet}
-                    </span>
+                  <TableCell className="">
+                    <div className=" p-4 rounded-2xl ">
+                      {NumberSeparator(data.wallet)}
+                    </div>
                   </TableCell>
                   <TableCell>
-                    {data.walletOut > 1000 ? (
-                      <span className="bg-asiatech-green-400 text-asiatech-green-901 p-4 rounded-2xl text-2xl">
-                        {data.walletOut}
-                      </span>
-                    ) : (
-                      <span className="bg-asiatech-red-400 text-asiatech-red-901 p-4 rounded-2xl text-2xl">
-                        {data.RR}
-                      </span>
-                    )}
+                    <span className="">{data.RR}</span>
                   </TableCell>
                 </TableRow>
               );

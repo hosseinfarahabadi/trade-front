@@ -24,7 +24,6 @@ export const useCalculator = () => {
     // const searchBtnHandler = (selectedPage: number, selectedPerPage: number) => {
     //     getHighestAmount(selectedPage, selectedPerPage, startDate, endDate, debouncedcSearch, setDiasableBtn, setTableData, setLoading, setTotalPage)
     // }
-console.log(tableData)
     useEffect(() => {
         
         getTradeHistory(setTableData, setLoading)
