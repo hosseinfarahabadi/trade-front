@@ -6,10 +6,12 @@ function Body({ children }: { children: React.ReactNode }) {
   return (
     <>
       <main className="w-full h-full">
-        <section className="w-full pr-6 mb-8 h-16 bg-asiatech-gray-100 text-xl font-bold text-asiatech-gray-900">
-          <span>خوش آمدید </span> <span>{user?.username} </span>
-          <span>عزیز </span>
-        </section>
+        {user && (
+          <section className="w-full pr-6 mb-8 h-16 bg-asiatech-gray-100 text-xl font-bold text-asiatech-gray-900">
+            <span>خوش آمدید </span> <span>{user?.username} </span>
+            <span>عزیز </span>
+          </section>
+        )}
         <section className="w-full h-full px-6 -mt-12">{children}</section>
       </main>
     </>

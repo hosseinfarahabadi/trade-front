@@ -8,6 +8,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 interface UserStore {
     user: IMeData | null;
     setUser: (user: IMeData) => void;
+    // storage: any;
 }
 
 // export const useUserStore = create<UserStore>((set) => ({

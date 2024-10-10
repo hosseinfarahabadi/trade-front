@@ -8,7 +8,6 @@ export const registration = (
     router:AppRouterInstance,
     setUser:any
 ) => {
-    console.log("injaaaaaaaaa")
      Aregister(body).then((res: any) => {
         setUser(res.data.user)
         localStorage.setItem("token",res.data.jwt)

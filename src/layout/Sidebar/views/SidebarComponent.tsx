@@ -6,7 +6,7 @@ import SidebarMenu from "./SidebarMenu";
 export default function SidebarComponent({ open, setOpen }: ISidebarComponent) {
   const [mouseHover, setMouseHover] = useState<boolean>(false);
   return (
-    <aside
+    <div
       onMouseOver={() => {
         setMouseHover(true);
       }}
@@ -19,6 +19,6 @@ export default function SidebarComponent({ open, setOpen }: ISidebarComponent) {
     >
       <SidebarLogo open={open} setOpen={setOpen} />
       <SidebarMenu open={open} mouseHover={mouseHover} />
-    </aside>
+    </div>
   );
 }

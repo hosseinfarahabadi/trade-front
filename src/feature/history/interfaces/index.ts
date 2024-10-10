@@ -1,3 +1,4 @@
+import { FieldErrors, UseFormGetValues, UseFormHandleSubmit, UseFormSetValue, UseFormWatch } from "react-hook-form"
 
 
 
@@ -6,43 +7,72 @@
 
 export interface ITradeHistory {
   id: number
-  volume: number
+  attributes: Attributes
+}
+
+export interface Attributes {
+  volume: string
   result: string
-  stop: number
-  takeProfit: number
-  RR: number
+  stop: string
+  takeProfit: string
+  RR: string
   sign: string
   buySell: string
-  drowDown: number
+  drowDown: string
   createdAt: string
   updatedAt: string
   publishedAt: string
-  users: Users
 }
 
-export interface Users {
-  id: number
-  username: string
-  email: string
-  provider: string
-  password: string
-  resetPasswordToken: any
-  confirmationToken: any
-  confirmed: boolean
-  blocked: boolean
-  createdAt: string
-  updatedAt: string
-}
+// export interface ITradeHistory {
+//   id: number
+//   volume: number
+//   result: string
+//   stop: number
+//   takeProfit: number
+//   RR: number
+//   sign: string
+//   buySell: string
+//   drowDown: number
+//   createdAt: string
+//   updatedAt: string
+//   publishedAt: string
+//   users: Users
+// }
+
+// export interface Users {
+//   id: number
+//   username: string
+//   email: string
+//   provider: string
+//   password: string
+//   resetPasswordToken: any
+//   confirmationToken: any
+//   confirmed: boolean
+//   blocked: boolean
+//   createdAt: string
+//   updatedAt: string
+// }
 
 export interface ITradeObject {
   
    id: number;
    result: string;
-    drowDown: number;
+    drowDown: string;
 
 }
+export interface Root {
+  volume: number
+  stop: number
+  takeProfit: number
+  RR: number
+  drowDown: number
+  sign: string
+  result: string
+  buySell: string
+}
 
-export interface Attributes {
+export interface ItradeObj {
   volume: number
   result: string
   stop: number
@@ -54,4 +84,25 @@ export interface Attributes {
   createdAt: string
   updatedAt: string
   publishedAt: string
+}
+export interface IformData {
+  volume: string
+  result: string
+  stop: string
+  takeProfit: string
+  RR: string
+  sign: string
+  buySell: string
+  drowDown: string
+}
+export interface ITradeModal {
+  isOpen: boolean;
+  componentToShow?: any;
+  onOpenChange: (isOpen: boolean) => void;
+  watch: UseFormWatch<IformData>;
+  getValues: UseFormGetValues<IformData>;
+  errors: FieldErrors<IformData>;
+  handleSubmit: any;
+  setValue: UseFormSetValue<IformData>;
+  onClick: Function;
 }

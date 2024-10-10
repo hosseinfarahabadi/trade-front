@@ -12,7 +12,6 @@ export const getHighestAmount = (
     setLoading(true)
     AgetHighestAmount(page, perPage).then((res: any) => {
         setLoading(false)
-        console.log(res.data.trades)
         setTableData(res.data.trades)
         setTotalPage(res.data.data.data.last_page)
     }).catch((err: any) => {

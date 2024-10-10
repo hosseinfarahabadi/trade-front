@@ -17,7 +17,6 @@ function SidebarLogo({ open, setOpen }: ISidebarLogo) {
           className="w-9 h-9 flex justify-center items-center bg-asiatech-gray-300 rounded-14 cursor-pointer"
           onClick={() => {
             setOpen(!open);
-            console.log(open, "open");
           }}
         >
           <PinIcon className="w-5 h-5" />

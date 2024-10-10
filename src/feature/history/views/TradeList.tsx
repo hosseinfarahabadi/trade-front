@@ -2,6 +2,7 @@ import SearchNewIcon from "@/assets/icons/SearchNewIcon";
 import ServerIcon from "@/assets/icons/ServerIcon";
 import EmptyState from "@/components/emptyState/EmptyState";
 import {
+  Button,
   Card,
   CardHeader,
   Pagination,
@@ -16,18 +17,41 @@ import {
 } from "@nextui-org/react";
 import { useTradeList } from "../hooks/useTradeList";
 import { ITradeHistory } from "../interfaces";
+import AddTradeModal from "./AddTradeModal";
 
 const TradeList = () => {
-  const { tableData, loading, page, setPage, totalPage } = useTradeList();
+  const {
+    tableData,
+    loading,
+    page,
+    setPage,
+    totalPage,
+    router,
+    setValue,
+    watch,
+    getValues,
+    handleSubmit,
+    reset,
+    onAddTrade,
+    errors,
+  } = useTradeList();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  console.log(tableData);
   return (
     <>
       <Card className="px-4 py-6 mt-6 overflow-visible">
         <CardHeader className="flex flex-col lg:flex-row justify-between p-0 mb-6 text-asiatech-gray-800">
-          <div className="flex gap-2">
+          <div className="w-full flex items-center justify-between gap-2">
             {/* <ServerIcon className="w-6 h-6 ml-2" /> */}
-            <span className="font-extrabold text-base">نتایج معاملات</span>
+            <p className="font-extrabold text-base">نتایج معاملات</p>
+            <Button
+              color="primary"
+              className=""
+              onClick={() => {
+                onOpen();
+              }}
+            >
+              افزودن ترید
+            </Button>
           </div>
         </CardHeader>
 
@@ -39,7 +63,7 @@ const TradeList = () => {
           removeWrapper
           classNames={{
             th: "text-center",
-            td: "text-center py-6 ",
+            td: "text-right py-6 ",
             thead: "shadow-none",
             table: "text-asiatech-gray-800",
           }}
@@ -49,11 +73,11 @@ const TradeList = () => {
               #
             </TableColumn>
             <TableColumn key="date"> شناسه </TableColumn>
-            <TableColumn key="count"> حجم</TableColumn>
+            <TableColumn key="count"> RR</TableColumn>
             <TableColumn key="count"> نتیجه</TableColumn>
+            <TableColumn key="count"> حجم</TableColumn>
             <TableColumn key="count"> صود</TableColumn>
             <TableColumn key="count"> زیان</TableColumn>
-            <TableColumn key="count"> RR</TableColumn>
             <TableColumn key="count"> drowDown</TableColumn>
             <TableColumn key="count"> نماد</TableColumn>
             <TableColumn key="count"> buy/Sell</TableColumn>
@@ -68,17 +92,65 @@ const TradeList = () => {
             {tableData &&
               tableData?.map((data: ITradeHistory, index: number) => {
                 return (
-                  <TableRow className="bordertabel" key={index}>
+                  <TableRow className="bordertabel" key={data.id}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{data?.id}</TableCell>
-                    <TableCell>{data?.volume}</TableCell>
-                    <TableCell>{data?.result}</TableCell>
-                    <TableCell>{data?.takeProfit}</TableCell>
-                    <TableCell>{data?.stop}</TableCell>
-                    <TableCell>{data?.RR}</TableCell>
-                    <TableCell>{data?.drowDown}</TableCell>
-                    <TableCell>{data?.sign}</TableCell>
-                    <TableCell>{data?.buySell}</TableCell>
+                    <TableCell>
+                      {data?.attributes.RR ? (
+                        data?.attributes.RR
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data.attributes.result ? (
+                        data?.attributes.result
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data.attributes.volume ? (
+                        data?.attributes.volume
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data?.attributes.takeProfit ? (
+                        data?.attributes.takeProfit
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data?.attributes.stop ? (
+                        data?.attributes.stop
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data?.attributes.drowDown ? (
+                        data?.attributes.drowDown
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data?.attributes.sign ? (
+                        data?.attributes.sign
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {data?.attributes.buySell ? (
+                        data?.attributes.buySell
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -98,19 +170,20 @@ const TradeList = () => {
               }}
             />
           )}
-          {/* <SearchModal
-            isOpen={isOpen}
-            onOpenChange={onOpenChange}
-            startDate={startDate}
-            setStartDate={setStartDate}
-            endDate={endDate}
-            setEndDate={setEndDate}
-            onClick={() => {
-              setPage(1);
-            }}
-          /> */}
         </div>
       </Card>
+      <AddTradeModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        watch={watch}
+        getValues={getValues}
+        setValue={setValue}
+        errors={errors}
+        handleSubmit={handleSubmit}
+        onClick={() => {
+          onAddTrade();
+        }}
+      />
     </>
   );
 };

@@ -27,7 +27,6 @@ interface IbetTable {
 }
 const Calculator = () => {
   const { loading, tradeObject } = useSmooth();
-  console.log(tradeObject);
 
   let winFlag: any = null;
   let cash = 0;

@@ -26,7 +26,6 @@ export const useLogin = () => {
             identifier : watch("identifier"),
             password : watch("password")
         };
-console.log(body)
         login(body,router,setUser);
     }
     const {

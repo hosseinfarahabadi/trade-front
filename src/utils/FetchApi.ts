@@ -5,7 +5,6 @@ export type OptionsType = Options;
 let access = typeof window !== "undefined" ? window.localStorage.getItem("token") : "";
 const getToken = () => typeof window !== "undefined" ? window.localStorage.getItem("token") : "";
 
-console.log(getToken())
 const defaultOpTion = {
   headers: {
      authorization: `Bearer ${access ? access : ""} `,
