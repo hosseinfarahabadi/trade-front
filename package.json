@@ -22,7 +22,9 @@
     "react-tooltip": "^5.26.4",
     "redaxios": "^0.5.1",
     "zod": "^3.23.8",
-    "zustand": "^5.0.0-rc.2"
+    "zustand": "^5.0.0-rc.2",
+    "zustymiddleware": "^1.2.0",
+    "zustymiddlewarets": "^1.4.2"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -28,7 +28,9 @@ export const useNavbarComponent = () => {
   //       router.push("/login");
   //     });
   // }
+  console.log("check")
   useEffect(() => {
+    console.log("check")
     if (token && router) {
      
     }else{

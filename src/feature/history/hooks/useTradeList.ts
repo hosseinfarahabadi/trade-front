@@ -35,7 +35,7 @@ export const useTradeList = () => {
 
     }, [])
     useEffect(() => {
-        if (tableData.length > 0) {
+        if (tableData?.length > 0) {
             const newTemp = tableData.map((item:ITradeHistory) =>({
                 id: item.id,
                 result: item.result,
@@ -45,7 +45,7 @@ export const useTradeList = () => {
         }
 
     }, [tableData])
-
+console.log(tableData)
     return {
         tableData,
         setTableData,
