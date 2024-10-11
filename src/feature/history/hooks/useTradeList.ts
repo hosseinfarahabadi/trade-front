@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { DateObject } from "react-multi-date-picker";
-import {  deleteHandler, getTradeHistory, setTradeHistory, updateHandler } from "../helper/controller";
-import { IformData, ITradeHistory, ITradeObject } from "../interfaces";
+import {  deleteHandler, getJournals, getTradeHistory, setTradeHistory, updateHandler } from "../helper/controller";
+import { IformData, IJournal, ITradeHistory, ITradeObject } from "../interfaces";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,6 +21,7 @@ export const useTradeList = () => {
     const [tadeID, setTadeID] = useState<string>("")
     const [edit, setEdit] = useState<boolean>(false)
     const [tableData, setTableData] = useState<ITradeHistory[]>([])
+    const [journals, setJournals] = useState<IJournal[]>([])
     const [selectedTrade, setSelectedTrade] = useState<ITradeHistory>()
     const [tradeObject, setTradeObject] = useState<ITradeObject[]>([])
 
@@ -31,6 +32,7 @@ export const useTradeList = () => {
         resolver: zodResolver(STrade),
         mode: "onSubmit",
         values: {
+            journal : String(journals[0].id),
             volume : "",
              result: "w",
               stop:"",
@@ -56,6 +58,7 @@ export const useTradeList = () => {
         const body = {
             data :{
 
+                journal: watch("journal"),
                 volume: watch("volume"),
                 result: watch("result"),
                 stop: watch("stop"),
@@ -73,6 +76,7 @@ export const useTradeList = () => {
         const body = {
             data :{
 
+                journal: watch("journal"),
                 volume: watch("volume"),
                 result: watch("result"),
                 stop: watch("stop"),
@@ -89,6 +93,9 @@ export const useTradeList = () => {
     }
     const onDeleteHandler = () => {
         deleteHandler(tadeID,setLoading, setTableData);
+    }
+    const getJournalsHandler = () => {
+        getJournals(setJournals,setLoading);
     }
 
     useEffect(() => {
@@ -107,7 +114,7 @@ export const useTradeList = () => {
         }
 
     }, [tableData])
-console.log(tableData)
+console.log(journals)
     return {
         tableData,
         setTableData,
@@ -134,6 +141,9 @@ console.log(tableData)
         edit, 
         setEdit,
         selectedTrade,
-         setSelectedTrade
+         setSelectedTrade,
+         getJournalsHandler,
+         journals
+
     }
 }

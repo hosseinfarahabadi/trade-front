@@ -11,17 +11,21 @@ import {
 } from "@nextui-org/react";
 
 import { ITradeModal } from "../interfaces";
+import { nameofvalue } from "@/utils/utility";
 
 export default function AddTradeModal({
   isOpen,
   watch,
   setValue,
   edit,
+  journals,
   errors,
   onOpenChange,
   onClick,
 }: ITradeModal) {
-  console.log(edit);
+  console.log(watch());
+  console.log(journals);
+
   return (
     <Modal
       backdrop="opaque"
@@ -42,6 +46,36 @@ export default function AddTradeModal({
             <ModalBody>
               {/* <form onSubmit={handleSubmit(onAddTrade)}> */}
               <div className="grid grid-cols-2 gap-4">
+                <div className="w-full md:w-60">
+                  <label className="text-asiatech-gray-700 " dir="ltr">
+                    <span className="text-asiatech-red-800">*</span> نام ژورنال
+                  </label>
+                  <Select
+                    items={journals}
+                    selectedKeys={[String(watch("journal"))]}
+                    // selectedKeys={getValues("result") ? new Set<Key>([String(getValues("result"))]) : ""}
+                    // defaultSelectedKeys={"w"}
+                    // disabledKeys={totalPage < 2 ? ["10", "15"] : totalPage < 3 ? ["15"] : []}
+                    variant="bordered"
+                    className="w-full mt-2 shadow-none "
+                    classNames={{
+                      trigger: "p-4  h-10 bg-white shadow-none border-1 ",
+                      label: "hidden ",
+                      value: "text-right",
+                      innerWrapper: "!pt-0",
+                      selectorIcon: "right-[unset] left-3",
+                    }}
+                    onChange={(e: any) => {
+                      setValue("journal", e.target.value);
+                    }}
+                  >
+                    {(journals) => (
+                      <SelectItem key={journals.id}>
+                        {journals.attributes.name}
+                      </SelectItem>
+                    )}
+                  </Select>
+                </div>
                 <div className="w-full md:w-60">
                   <label className="text-asiatech-gray-700 " dir="ltr">
                     <span className="text-asiatech-red-800">*</span> result

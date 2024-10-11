@@ -6,64 +6,20 @@ import { FieldErrors, UseFormGetValues, UseFormHandleSubmit, UseFormSetValue, Us
 
 
 
-export interface ITradeHistory {
+
+
+export interface IJournal {
   id: number
   attributes: Attributes
 }
 
 export interface Attributes {
-  volume: string
-  result: string
-  stop: string
-  takeProfit: string
-  RR: string
-  sign: string
-  buySell: string
-  drowDown: string
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
-}
-export interface IJournal {
-  id: number
-  attributes: journalAttributes
-}
-
-export interface journalAttributes {
   name: string
   createdAt: string
   updatedAt: string
   publishedAt: string
 }
-// export interface ITradeHistory {
-//   id: number
-//   volume: number
-//   result: string
-//   stop: number
-//   takeProfit: number
-//   RR: number
-//   sign: string
-//   buySell: string
-//   drowDown: number
-//   createdAt: string
-//   updatedAt: string
-//   publishedAt: string
-//   users: Users
-// }
 
-// export interface Users {
-//   id: number
-//   username: string
-//   email: string
-//   provider: string
-//   password: string
-//   resetPasswordToken: any
-//   confirmationToken: any
-//   confirmed: boolean
-//   blocked: boolean
-//   createdAt: string
-//   updatedAt: string
-// }
 
 export interface ITradeObject {
   
@@ -97,21 +53,15 @@ export interface ItradeObj {
   publishedAt: string
 }
 export interface IformData {
-  journal: string
-  volume: string
-  result: string
-  stop: string
-  takeProfit: string
-  RR: string
-  sign: string
-  buySell: string
-  drowDown: string
+  name: string
+  createdAt: string
+  updatedAt: string
+  publishedAt: string
 }
 export interface ITradeModal {
   isOpen: boolean;
   componentToShow?: any;
   edit: boolean;
-  journals: IJournal[];
   onOpenChange: (isOpen: boolean) => void;
   watch: UseFormWatch<IformData>;
   getValues: UseFormGetValues<IformData>;

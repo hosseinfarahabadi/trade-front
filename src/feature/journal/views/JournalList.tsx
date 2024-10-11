@@ -15,14 +15,18 @@ import {
   TableRow,
   useDisclosure,
 } from "@nextui-org/react";
-import { useTradeList } from "../hooks/useTradeList";
-import { ITradeHistory } from "../interfaces";
-import AddTradeModal from "./AddTradeModal";
+import { useJournalList } from "../hooks/useJournalList";
+import { IJournal } from "../interfaces";
+import AddTradeModal from "./JournalModal";
 import DeleteModal from "./DeleteModal";
 import { LiaEditSolid } from "react-icons/lia";
 import { MdDeleteOutline } from "react-icons/md";
+import { DateObject } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import JournalModal from "./JournalModal";
 
-const TradeList = () => {
+const JournalList = () => {
   const {
     tableData,
     loading,
@@ -44,9 +48,8 @@ const TradeList = () => {
     setEdit,
     selectedTrade,
     setSelectedTrade,
-    getJournalsHandler,
-    journals,
-  } = useTradeList();
+  } = useJournalList();
+  console.log(tableData);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const {
     isOpen: isOpenDelete,
@@ -65,14 +68,11 @@ const TradeList = () => {
               className=""
               onClick={() => {
                 setEdit(false);
-                getJournalsHandler();
                 reset();
-                if (journals) {
-                  onOpen();
-                }
+                onOpen();
               }}
             >
-              افزودن ترید
+              افزودن ژورنال
             </Button>
           </div>
         </CardHeader>
@@ -95,14 +95,9 @@ const TradeList = () => {
               #
             </TableColumn>
             <TableColumn key="date"> شناسه </TableColumn>
-            <TableColumn key="count"> RR</TableColumn>
-            <TableColumn key="count"> نتیجه</TableColumn>
-            <TableColumn key="count"> حجم</TableColumn>
-            <TableColumn key="count"> صود</TableColumn>
-            <TableColumn key="count"> زیان</TableColumn>
-            <TableColumn key="count"> drowDown</TableColumn>
-            <TableColumn key="count"> نماد</TableColumn>
-            <TableColumn key="count"> buy/Sell</TableColumn>
+            <TableColumn key="count"> نام</TableColumn>
+            <TableColumn key="count"> تاریخ ایجاد</TableColumn>
+            <TableColumn key="count"> تاریخ به روزرسانی</TableColumn>
             <TableColumn key="count" className="!text-center">
               {" "}
               action
@@ -116,67 +111,29 @@ const TradeList = () => {
             }
           >
             {tableData &&
-              tableData?.map((data: ITradeHistory, index: number) => {
+              tableData?.map((data: IJournal, index: number) => {
                 return (
                   <TableRow className="bordertabel" key={data.id}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{data?.id}</TableCell>
                     <TableCell>
-                      {data?.attributes.RR ? (
-                        data?.attributes.RR
+                      {data?.attributes.name ? (
+                        data?.attributes.name
                       ) : (
                         <span>&mdash;</span>
                       )}
                     </TableCell>
                     <TableCell>
-                      {data.attributes.result ? (
-                        data?.attributes.result
-                      ) : (
-                        <span>&mdash;</span>
-                      )}
+                      {new DateObject(data?.attributes.createdAt)
+                        .convert(persian, persian_fa)
+                        .format()}
                     </TableCell>
                     <TableCell>
-                      {data.attributes.volume ? (
-                        data?.attributes.volume
-                      ) : (
-                        <span>&mdash;</span>
-                      )}
+                      {new DateObject(data?.attributes.updatedAt)
+                        .convert(persian, persian_fa)
+                        .format()}
                     </TableCell>
-                    <TableCell>
-                      {data?.attributes.takeProfit ? (
-                        data?.attributes.takeProfit
-                      ) : (
-                        <span>&mdash;</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {data?.attributes.stop ? (
-                        data?.attributes.stop
-                      ) : (
-                        <span>&mdash;</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {data?.attributes.drowDown ? (
-                        data?.attributes.drowDown
-                      ) : (
-                        <span>&mdash;</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {data?.attributes.sign ? (
-                        data?.attributes.sign
-                      ) : (
-                        <span>&mdash;</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {data?.attributes.buySell ? (
-                        data?.attributes.buySell
-                      ) : (
-                        <span>&mdash;</span>
-                      )}
-                    </TableCell>
+
                     <TableCell className="!p-0">
                       <div className="flex justify-center gap-4">
                         <div
@@ -186,14 +143,7 @@ const TradeList = () => {
                           onClick={() => {
                             setTadeID(String(data.id));
                             setEdit(true);
-                            setValue("RR", data.attributes.RR);
-                            setValue("buySell", data.attributes.buySell);
-                            setValue("drowDown", data.attributes.drowDown);
-                            setValue("result", data.attributes.result);
-                            setValue("sign", data.attributes.sign);
-                            setValue("stop", data.attributes.stop);
-                            setValue("takeProfit", data.attributes.takeProfit);
-                            setValue("volume", data.attributes.volume);
+                            setValue("name", data.attributes.name);
                             onOpen();
                           }}
                         >
@@ -235,11 +185,10 @@ const TradeList = () => {
           )}
         </div>
       </Card>
-      <AddTradeModal
+      <JournalModal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         edit={edit}
-        journals={journals}
         watch={watch}
         getValues={getValues}
         setValue={setValue}
@@ -259,10 +208,9 @@ const TradeList = () => {
         onOpenChange={onOpenChangeDelete}
         onClick={() => {
           onDeleteHandler();
-          console.log("first");
         }}
       />
     </>
   );
 };
-export default TradeList;
+export default JournalList;
