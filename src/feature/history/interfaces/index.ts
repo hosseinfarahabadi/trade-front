@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react"
 import { FieldErrors, UseFormGetValues, UseFormHandleSubmit, UseFormSetValue, UseFormWatch } from "react-hook-form"
 
 
@@ -98,11 +99,17 @@ export interface IformData {
 export interface ITradeModal {
   isOpen: boolean;
   componentToShow?: any;
+  edit: boolean;
   onOpenChange: (isOpen: boolean) => void;
   watch: UseFormWatch<IformData>;
   getValues: UseFormGetValues<IformData>;
   errors: FieldErrors<IformData>;
   handleSubmit: any;
   setValue: UseFormSetValue<IformData>;
+  onClick: Function;
+}
+export interface IDeleteModal {
+  isOpen: boolean;
+  onOpenChange: (isOpen: boolean) => void;
   onClick: Function;
 }

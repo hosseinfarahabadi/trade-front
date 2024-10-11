@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { DateObject } from "react-multi-date-picker";
-import {  getTradeHistory, setTradeHistory } from "../helper/controller";
+import {  deleteHandler, getTradeHistory, setTradeHistory, updateHandler } from "../helper/controller";
 import { IformData, ITradeHistory, ITradeObject } from "../interfaces";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -18,7 +18,10 @@ export const useTradeList = () => {
     const [page, setPage] = useState<number>(1)
     const [perPage, setPerPage] = useState<number>(10)
     const [totalPage, setTotalPage] = useState<number>(1)
+    const [tadeID, setTadeID] = useState<string>("")
+    const [edit, setEdit] = useState<boolean>(false)
     const [tableData, setTableData] = useState<ITradeHistory[]>([])
+    const [selectedTrade, setSelectedTrade] = useState<ITradeHistory>()
     const [tradeObject, setTradeObject] = useState<ITradeObject[]>([])
 
     const [search, setSearch] = useState<string>("");
@@ -66,6 +69,27 @@ export const useTradeList = () => {
         };
         setTradeHistory(body,setLoading, setTableData);
     }
+    const onUpdateHandler = () => {
+        const body = {
+            data :{
+
+                volume: watch("volume"),
+                result: watch("result"),
+                stop: watch("stop"),
+                takeProfit: watch("takeProfit"),
+                RR: watch("RR"),
+                sign: watch("sign"),
+                buySell: watch("buySell"),
+                drowDown: watch("drowDown"),
+            }
+            
+        };
+        console.log(body)
+        updateHandler(tadeID,body,setLoading, setTableData);
+    }
+    const onDeleteHandler = () => {
+        deleteHandler(tadeID,setLoading, setTableData);
+    }
 
     useEffect(() => {
         
@@ -103,6 +127,13 @@ console.log(tableData)
         handleSubmit,
         reset,
         onAddTrade,
-        errors
+        errors,
+        onDeleteHandler,
+        setTadeID,
+        onUpdateHandler,
+        edit, 
+        setEdit,
+        selectedTrade,
+         setSelectedTrade
     }
 }

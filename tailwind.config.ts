@@ -135,15 +135,20 @@ const config: Config = {
     themes: {
       dark: {
         colors: {
-          // primary: {
-          //   DEFAULT: "#FEF3E3",
-          //   foreground: "#000000",
-          // },
-          // focus: "#BEF264",
+          danger: {
+            DEFAULT: "#C7242E",
+            foreground: "#000000",
+          },
+          focus: "#BEF264",
         },
       },
       light: {
         colors: {
+          danger: {
+            DEFAULT: "#C7242E",
+            foreground: "#000000",
+          },
+          focus: "#BEF264",
           // primary: {
           //   DEFAULT: "#E5F4FB",
           //   foreground: "#000000",

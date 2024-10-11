@@ -24,6 +24,10 @@ import DiskIcon from "@/assets/icons/DiskIcon";
 import CrossIcon from "@/assets/icons/CrossIcon";
 import FileIcon from "@/assets/icons/FileIcon";
 import GearIcon from "@/assets/icons/GearIcon";
+import { TiDocumentText } from "react-icons/ti";
+import { SlCalculator } from "react-icons/sl";
+import { FaCalculator } from "react-icons/fa";
+import { MdManageAccounts } from "react-icons/md";
 
 function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
   const pathname = usePathname();
@@ -127,7 +131,15 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
         isShow: true,
         name: "history",
         path: "/panel/history",
-        title: "ژورنال",
+        title: "ژورنال ها",
+        icon: <TiDocumentText className="text-2xl" />,
+        // <DiskIcon className="w-6 h-6" />,
+      },
+      {
+        isShow: true,
+        name: "history",
+        path: "/panel/history",
+        title: "تاریخچه ترید",
         icon: <DiskIcon className="w-6 h-6" />,
       },
       {
@@ -135,14 +147,14 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
         name: "calculator",
         path: "/panel/calculator",
         title: "ماشین حساب",
-        icon: <FileIcon className="w-6 h-6" />,
+        icon: <FaCalculator className="text-xl" />,
       },
       {
         isShow: true,
         name: "smooth",
         path: "/panel/smooth",
         title: "مدریت سرمایه",
-        icon: <GearIcon className="w-6 h-6" />,
+        icon: <MdManageAccounts className="text-2xl" />,
       },
       // {
       //   path: 1,

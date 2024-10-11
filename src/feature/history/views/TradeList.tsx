@@ -18,6 +18,9 @@ import {
 import { useTradeList } from "../hooks/useTradeList";
 import { ITradeHistory } from "../interfaces";
 import AddTradeModal from "./AddTradeModal";
+import DeleteModal from "./DeleteModal";
+import { LiaEditSolid } from "react-icons/lia";
+import { MdDeleteOutline } from "react-icons/md";
 
 const TradeList = () => {
   const {
@@ -34,8 +37,20 @@ const TradeList = () => {
     reset,
     onAddTrade,
     errors,
+    onDeleteHandler,
+    setTadeID,
+    onUpdateHandler,
+    edit,
+    setEdit,
+    selectedTrade,
+    setSelectedTrade,
   } = useTradeList();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onOpenChange: onOpenChangeDelete,
+  } = useDisclosure();
   return (
     <>
       <Card className="px-4 py-6 mt-6 overflow-visible">
@@ -47,6 +62,8 @@ const TradeList = () => {
               color="primary"
               className=""
               onClick={() => {
+                setEdit(false);
+                reset();
                 onOpen();
               }}
             >
@@ -81,6 +98,10 @@ const TradeList = () => {
             <TableColumn key="count"> drowDown</TableColumn>
             <TableColumn key="count"> نماد</TableColumn>
             <TableColumn key="count"> buy/Sell</TableColumn>
+            <TableColumn key="count" className="!text-center">
+              {" "}
+              action
+            </TableColumn>
           </TableHeader>
           <TableBody
             loadingContent={<Spinner />}
@@ -151,6 +172,43 @@ const TradeList = () => {
                         <span>&mdash;</span>
                       )}
                     </TableCell>
+                    <TableCell className="!p-0">
+                      <div className="flex justify-center gap-4">
+                        <div
+                          // color="primary"
+                          // variant="bordered"
+                          className="!p-1 relative h-8 text-xs  text-asiatech-blue-902 cursor-pointer"
+                          onClick={() => {
+                            setTadeID(String(data.id));
+                            setEdit(true);
+                            setValue("RR", data.attributes.RR);
+                            setValue("buySell", data.attributes.buySell);
+                            setValue("drowDown", data.attributes.drowDown);
+                            setValue("result", data.attributes.result);
+                            setValue("sign", data.attributes.sign);
+                            setValue("stop", data.attributes.stop);
+                            setValue("takeProfit", data.attributes.takeProfit);
+                            setValue("volume", data.attributes.volume);
+                            onOpen();
+                          }}
+                        >
+                          {/* <span>Edit</span> */}
+                          {/* <div className="flex w-full justify-between items-center">
+                          </div> */}
+                          <LiaEditSolid className="text-2xl" />
+                          {/* <div className="absolute left-2 top-0 "></div> */}
+                        </div>
+                        <div
+                          className="!p-1 !min-w-14 h-8 text-xs text-asiatech-red-800 cursor-pointer"
+                          onClick={() => {
+                            setTadeID(String(data.id));
+                            onOpenDelete();
+                          }}
+                        >
+                          <MdDeleteOutline className="text-2xl" />
+                        </div>
+                      </div>
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -175,13 +233,27 @@ const TradeList = () => {
       <AddTradeModal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
+        edit={edit}
         watch={watch}
         getValues={getValues}
         setValue={setValue}
         errors={errors}
         handleSubmit={handleSubmit}
         onClick={() => {
-          onAddTrade();
+          if (edit) {
+            onUpdateHandler();
+          } else {
+            onAddTrade();
+          }
+        }}
+      />
+
+      <DeleteModal
+        isOpen={isOpenDelete}
+        onOpenChange={onOpenChangeDelete}
+        onClick={() => {
+          onDeleteHandler();
+          console.log("first");
         }}
       />
     </>

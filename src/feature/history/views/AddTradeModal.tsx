@@ -16,10 +16,12 @@ export default function AddTradeModal({
   isOpen,
   watch,
   setValue,
+  edit,
   errors,
   onOpenChange,
   onClick,
 }: ITradeModal) {
+  console.log(edit);
   return (
     <Modal
       backdrop="opaque"
@@ -50,7 +52,7 @@ export default function AddTradeModal({
                         shouldValidate: true,
                       });
                     }}
-                    // selectedKeys={new Set<Key>([String(getValues("result"))])}
+                    selectedKeys={[String(watch("result"))]}
                     // selectedKeys={getValues("result") ? new Set<Key>([String(getValues("result"))]) : ""}
                     defaultSelectedKeys={"w"}
                     // disabledKeys={totalPage < 2 ? ["10", "15"] : totalPage < 3 ? ["15"] : []}
