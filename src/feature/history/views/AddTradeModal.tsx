@@ -23,9 +23,6 @@ export default function AddTradeModal({
   onOpenChange,
   onClick,
 }: ITradeModal) {
-  console.log(watch());
-  console.log(journals);
-
   return (
     <Modal
       backdrop="opaque"

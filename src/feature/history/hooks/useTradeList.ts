@@ -32,7 +32,7 @@ export const useTradeList = () => {
         resolver: zodResolver(STrade),
         mode: "onSubmit",
         values: {
-            journal : String(journals[0].id),
+            journal : journals.length > 0? String(journals[0].id): "",
             volume : "",
              result: "w",
               stop:"",
