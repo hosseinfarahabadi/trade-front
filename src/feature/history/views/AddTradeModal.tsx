@@ -50,9 +50,6 @@ export default function AddTradeModal({
                   <Select
                     items={journals}
                     selectedKeys={[String(watch("journal"))]}
-                    // selectedKeys={getValues("result") ? new Set<Key>([String(getValues("result"))]) : ""}
-                    // defaultSelectedKeys={"w"}
-                    // disabledKeys={totalPage < 2 ? ["10", "15"] : totalPage < 3 ? ["15"] : []}
                     variant="bordered"
                     className="w-full mt-2 shadow-none "
                     classNames={{
