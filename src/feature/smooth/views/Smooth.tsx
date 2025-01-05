@@ -111,9 +111,11 @@ const Smooth = () => {
           wallet = wallet + bet * riskToRiward - 0.5;
           if (bet > (wallet * 1) / 100) {
             bet = bet / 2;
+          }else{
+            bet = initialBet
           }
-          if (bet > 300) {
-            bet = (wallet * 1) / 100;
+          if (bet > (wallet * 30) / 100) {
+            bet = initialBet;
           }
           // bet = bet * 2;
         } else {
@@ -136,7 +138,7 @@ const Smooth = () => {
           // if (lossCount == 5) {
           //   bet = (wallet * 2) / 100;
           // }
-          bet *= 1.6;
+          bet *= 1.5;
         }
         winRatePer = (winCount / j) * 100;
         walletArr.push(wallet);
