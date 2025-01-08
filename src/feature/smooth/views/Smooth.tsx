@@ -17,6 +17,7 @@ import {
 import ReactECharts from "echarts-for-react";
 import React, { useEffect } from "react";
 import { useSmooth } from "../hooks/useSmooth";
+import { MdManageHistory } from "react-icons/md";
 
 interface IbetTable {
   // id: number;
@@ -215,9 +216,11 @@ const Smooth = () => {
     <>
       <Card className="px-4 py-6 mt-6 overflow-visible">
         <CardHeader className="flex items-start flex-col p-0 mb-6 text-asiatech-gray-800">
-          <div className="flex ">
+          <div className="flex gap-4 ">
+            <MdManageHistory className="text-2xl" />
+
             <span className="font-extrabold text-base">
-              ماشین حساب مدریت سرمایه و ریسک
+              مدریت سرمایه و ریسک
             </span>
           </div>
           <div className="w-full grid grid-cols-3 gap-3">
@@ -359,8 +362,8 @@ const Smooth = () => {
           className="!p-0 mt-1 overflow-x-auto"
           removeWrapper
           classNames={{
-            th: "text-center",
-            td: "text-center py-6 ",
+            th: "text-right",
+            td: "text-right   ",
             thead: "shadow-none",
             table: "text-asiatech-gray-800",
           }}
@@ -371,7 +374,6 @@ const Smooth = () => {
             <TableColumn key="count"> نرخ برد</TableColumn>
             <TableColumn key="count"> مقدار شرط</TableColumn>
             <TableColumn key="count"> کیف پول</TableColumn>
-            <TableColumn key="count"> سود و زیان</TableColumn>
           </TableHeader>
           <TableBody
             loadingContent={<Spinner />}
@@ -386,32 +388,19 @@ const Smooth = () => {
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>
                     {data?.result == "W" ? (
-                      <span className="p-4 bg-asiatech-green-500 rounded-2xl ">
+                      <div className="w-10 h-12 flex justify-center items-center bg-asiatech-green-500 rounded-2xl ">
                         {data?.result}
-                      </span>
+                      </div>
                     ) : (
-                      <span className="p-4 bg-asiatech-red-500 rounded-2xl ">
+                      <div className="w-10 h-12 flex justify-center items-center bg-asiatech-red-500 rounded-2xl ">
                         {data?.result}
-                      </span>
+                      </div>
                     )}
                   </TableCell>
                   <TableCell>{data?.winRate}</TableCell>
-                  <TableCell className="text-2xl">{data.bet}</TableCell>
+                  <TableCell>{data.bet}</TableCell>
                   <TableCell>
-                    <span className="bg-asiatech-orange-800 text-white p-4 rounded-2xl text-2xl">
-                      {data.wallet}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    {data.walletOut > 1000 ? (
-                      <span className="bg-asiatech-green-400 text-asiatech-green-901 p-4 rounded-2xl text-2xl">
-                        {data.walletOut}
-                      </span>
-                    ) : (
-                      <span className="bg-asiatech-red-400 text-asiatech-red-901 p-4 rounded-2xl text-2xl">
-                        {data.walletOut}
-                      </span>
-                    )}
+                    <span>{data.wallet}</span>
                   </TableCell>
                 </TableRow>
               );

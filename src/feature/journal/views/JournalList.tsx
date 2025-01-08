@@ -20,11 +20,12 @@ import { IJournal } from "../interfaces";
 import AddTradeModal from "./JournalModal";
 import DeleteModal from "./DeleteModal";
 import { LiaEditSolid } from "react-icons/lia";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline, MdHistory } from "react-icons/md";
 import { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import JournalModal from "./JournalModal";
+import { BsJournalCheck } from "react-icons/bs";
 
 const JournalList = () => {
   const {
@@ -61,8 +62,11 @@ const JournalList = () => {
       <Card className="px-4 py-6 mt-6 overflow-visible">
         <CardHeader className="flex flex-col lg:flex-row justify-between p-0 mb-6 text-asiatech-gray-800">
           <div className="w-full flex items-center justify-between gap-2">
-            {/* <ServerIcon className="w-6 h-6 ml-2" /> */}
-            <p className="font-extrabold text-base">نتایج معاملات</p>
+            <div className="flex items-center gap-4">
+              <BsJournalCheck className="text-xl" />
+
+              <p className="font-extrabold text-base">ژورنال ها</p>
+            </div>
             <Button
               color="primary"
               className=""

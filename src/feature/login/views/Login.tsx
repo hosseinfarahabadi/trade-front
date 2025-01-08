@@ -16,31 +16,11 @@ const Login: React.FC = () => {
     showPassword,
     setShowPassword,
   } = useLogin();
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm<LoginForm>();
-  // const router = useRouter();
-  // const [errorMessage, setErrorMessage] = useState("");
-
-  // const onSubmit = async (data: LoginForm) => {
-  //   try {
-  //     const response = await axios.post("/api/auth/login", data);
-  //     if (response.status === 200) {
-  //       // Redirect to the dashboard or homepage after successful login
-  //       router.push("/dashboard");
-  //     }
-  //   } catch (error) {
-  //     setErrorMessage("Invalid email or password");
-  //   }
-  // };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center">Login</h2>
-        {/* {errorMessage && <p className="text-red-500">{errorMessage}</p>} */}
         <form onSubmit={handleSubmit(onLoginHandler)} className="mt-4">
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
@@ -67,7 +47,7 @@ const Login: React.FC = () => {
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                className={`mt-1 block w-full p-2 border ${
+                className={`mt-1 block w-full p-2 border rtl ${
                   errors.password ? "border-red-500" : "border-gray-300"
                 } rounded-md`}
                 {...register("password", { required: "Password is required" })}

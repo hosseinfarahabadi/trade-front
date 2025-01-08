@@ -5,13 +5,8 @@ import { FieldErrors, UseFormGetValues, UseFormHandleSubmit, UseFormSetValue, Us
 
 
 
-
 export interface ITradeHistory {
   id: number
-  attributes: Attributes
-}
-
-export interface Attributes {
   volume: string
   result: string
   stop: string
@@ -23,7 +18,63 @@ export interface Attributes {
   createdAt: string
   updatedAt: string
   publishedAt: string
+  users: Users
 }
+
+export interface Users {
+  id: number
+  username: string
+  email: string
+  provider: string
+  password: string
+  resetPasswordToken: any
+  confirmationToken: any
+  confirmed: boolean
+  blocked: boolean
+  createdAt: string
+  updatedAt: string
+}
+// export interface ITradeHistory {
+//   id: number
+//   attributes: Attributes
+// }
+
+// export interface Attributes {
+//   volume: string
+//   result: string
+//   stop: string
+//   takeProfit: string
+//   RR: string
+//   sign: string
+//   buySell: string
+//   drowDown: string
+//   createdAt: string
+//   updatedAt: string
+//   publishedAt: string
+//   journal: Journal
+//   users: Users
+// }
+
+export interface Journal {
+  data: Data
+}
+
+export interface Data {
+  id: number
+  attributes: Attributes
+}
+
+export interface Attributes {
+  name: string
+  createdAt: string
+  updatedAt: string
+  publishedAt: string
+}
+
+export interface Users {
+  data: any
+}
+
 export interface IJournal {
   id: number
   attributes: journalAttributes
@@ -98,6 +149,7 @@ export interface ItradeObj {
 }
 export interface IformData {
   journal: string
+  filter: string
   volume: string
   result: string
   stop: string

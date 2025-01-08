@@ -9,6 +9,8 @@ import DiskIcon from "@/assets/icons/DiskIcon";
 import { TiDocumentText } from "react-icons/ti";
 import { FaCalculator } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
+import { CiLogout } from "react-icons/ci";
+import { BsClockHistory } from "react-icons/bs";
 
 function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
   const pathname = usePathname();
@@ -38,7 +40,7 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
         name: "history",
         path: "/panel/history",
         title: "تاریخچه ترید",
-        icon: <DiskIcon className="w-6 h-6" />,
+        icon: <BsClockHistory className="text-2xl" />,
       },
       {
         isShow: true,
@@ -166,9 +168,10 @@ function SidebarMenu({ mouseHover, open }: ISidebarMenu) {
       </ul>
       <button
         onClick={handleLogout}
-        className="mt-4 px-4 py-2 w-60 bg-red-500 text-white rounded hover:bg-red-600 transition duration-300"
+        className="flex items-center mt-4 px-4 py-2 w-60 bg-red-500 text-white rounded hover:bg-red-600 transition duration-300"
       >
-        Log Out
+        <CiLogout className="ml-9 text-xl" />
+        خروج
       </button>
     </>
   );

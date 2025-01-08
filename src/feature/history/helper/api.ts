@@ -1,7 +1,7 @@
 import FetchApi, { TResponse } from "@/utils/FetchApi";
 
-export const AgeTradeHistory = async (): Promise<TResponse<any>> => {
-    return FetchApi.get(`${process.env.NEXT_PUBLIC_URL}/trades`, {});
+export const AgeTradeHistory = async (query:any): Promise<TResponse<any>> => {
+    return FetchApi.get(`${process.env.NEXT_PUBLIC_URL}/trades?populate=*${query}`, {});
 };
 export const AgetJournals = async (): Promise<TResponse<any>> => {
     return FetchApi.get(`${process.env.NEXT_PUBLIC_URL}/journals`, {});

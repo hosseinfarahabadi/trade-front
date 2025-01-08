@@ -22,6 +22,7 @@ export const useTradeList = () => {
     const [edit, setEdit] = useState<boolean>(false)
     const [tableData, setTableData] = useState<ITradeHistory[]>([])
     const [journals, setJournals] = useState<IJournal[]>([])
+    const [journalFilter, setJournalFilter] = useState<IJournal[]>([])
     const [selectedTrade, setSelectedTrade] = useState<ITradeHistory>()
     const [tradeObject, setTradeObject] = useState<ITradeObject[]>([])
 
@@ -33,7 +34,8 @@ export const useTradeList = () => {
         mode: "onSubmit",
         values: {
             journal : journals.length > 0? String(journals[0].id): "",
-            volume : "",
+            filter : "", 
+            volume : "", 
              result: "w",
               stop:"",
             takeProfit:"",
@@ -94,13 +96,19 @@ export const useTradeList = () => {
     const onDeleteHandler = () => {
         deleteHandler(tadeID,setLoading, setTableData);
     }
-    const getJournalsHandler = () => {
-        getJournals(setJournals,setLoading);
+    const filtering = () => {
+        let query;
+        if(watch("filter") == "-1"){
+             query = ""
+        }else{
+             query = `&filters[journal][id][$eq]=${watch("filter")}`
+        }
+        getTradeHistory(setTableData, setLoading,query)
     }
 
     useEffect(() => {
-        
-        getTradeHistory(setTableData, setLoading)
+        getJournals(setJournals,setJournalFilter,setLoading);
+        getTradeHistory(setTableData, setLoading,"")
 
     }, [])
     useEffect(() => {
@@ -114,7 +122,7 @@ export const useTradeList = () => {
         }
 
     }, [tableData])
-console.log(journals)
+console.log(watch())
     return {
         tableData,
         setTableData,
@@ -142,8 +150,9 @@ console.log(journals)
         setEdit,
         selectedTrade,
          setSelectedTrade,
-         getJournalsHandler,
-         journals
+         journals,
+         journalFilter,
+         filtering
 
     }
 }

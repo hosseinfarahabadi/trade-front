@@ -6,6 +6,8 @@ import {
   Card,
   CardHeader,
   Pagination,
+  Select,
+  SelectItem,
   Spinner,
   Table,
   TableBody,
@@ -20,7 +22,10 @@ import { ITradeHistory } from "../interfaces";
 import AddTradeModal from "./AddTradeModal";
 import DeleteModal from "./DeleteModal";
 import { LiaEditSolid } from "react-icons/lia";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline, MdHistory } from "react-icons/md";
+import { DateObject } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
 
 const TradeList = () => {
   const {
@@ -44,8 +49,9 @@ const TradeList = () => {
     setEdit,
     selectedTrade,
     setSelectedTrade,
-    getJournalsHandler,
     journals,
+    journalFilter,
+    filtering,
   } = useTradeList();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const {
@@ -59,24 +65,58 @@ const TradeList = () => {
         <CardHeader className="flex flex-col lg:flex-row justify-between p-0 mb-6 text-asiatech-gray-800">
           <div className="w-full flex items-center justify-between gap-2">
             {/* <ServerIcon className="w-6 h-6 ml-2" /> */}
-            <p className="font-extrabold text-base">نتایج معاملات</p>
+            <div className="flex gap-4">
+              <MdHistory className="text-2xl" />
+              <p className="font-extrabold text-base">تاریخچه معاملات</p>
+            </div>
             <Button
               color="primary"
               className=""
               onClick={() => {
                 setEdit(false);
-                getJournalsHandler();
                 reset();
-                if (journals) {
-                  onOpen();
-                }
+                onOpen();
               }}
             >
               افزودن ترید
             </Button>
           </div>
         </CardHeader>
-
+        <div className="w-full flex items-center gap-4 mb-6">
+          <div>فیلتر: </div>
+          <Select
+            placeholder="ژورنال"
+            items={journalFilter}
+            selectedKeys={[String(watch("filter"))]}
+            variant="bordered"
+            className="w-40 shadow-none "
+            classNames={{
+              trigger: "p-4  h-10 bg-white shadow-none border-1 ",
+              label: "hidden ",
+              value: "text-right",
+              innerWrapper: "!pt-0",
+              selectorIcon: "right-[unset] left-3",
+            }}
+            onChange={(e: any) => {
+              setValue("filter", e.target.value);
+            }}
+          >
+            {(journalFilter) => (
+              <SelectItem key={journalFilter.id}>
+                {journalFilter.attributes.name}
+              </SelectItem>
+            )}
+          </Select>
+          <Button
+            color="primary"
+            className=""
+            onClick={() => {
+              filtering();
+            }}
+          >
+            اعمال
+          </Button>
+        </div>
         <Table
           aria-label="reasons table"
           shadow="none"
@@ -95,6 +135,8 @@ const TradeList = () => {
               #
             </TableColumn>
             <TableColumn key="date"> شناسه </TableColumn>
+            <TableColumn key="count"> ژورنال</TableColumn>
+            <TableColumn key="count"> تاریخ</TableColumn>
             <TableColumn key="count"> RR</TableColumn>
             <TableColumn key="count"> نتیجه</TableColumn>
             <TableColumn key="count"> حجم</TableColumn>
@@ -122,12 +164,25 @@ const TradeList = () => {
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{data?.id}</TableCell>
                     <TableCell>
+                      {data.attributes.journal.data.attributes.name ? (
+                        data.attributes.journal.data.attributes.name
+                      ) : (
+                        <span>&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {new DateObject(data?.attributes.createdAt)
+                        .convert(persian, persian_fa)
+                        .format()}
+                    </TableCell>
+                    <TableCell>
                       {data?.attributes.RR ? (
                         data?.attributes.RR
                       ) : (
                         <span>&mdash;</span>
                       )}
                     </TableCell>
+
                     <TableCell>
                       {data.attributes.result ? (
                         data?.attributes.result

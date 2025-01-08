@@ -1,16 +1,43 @@
 import { useUserStore } from "@/store/user";
+import { Button, Card } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
+import { CiLogout } from "react-icons/ci";
+import useBody from "../hooks/useBody";
 
 function Body({ children }: { children: React.ReactNode }) {
+  const {} = useBody();
   const user = useUserStore((state) => state.user);
+  const router = useRouter();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
   console.log(user);
   return (
     <>
-      <main className="w-full h-full">
+      <main className="w-full  h-full">
         {user && (
-          <section className="w-full pr-6 mb-8 h-16 bg-asiatech-gray-100 text-xl font-bold text-asiatech-gray-900">
-            <span>خوش آمدید </span> <span>{user?.username} </span>
-            <span>عزیز </span>
-          </section>
+          <div className="px-6 mb-20">
+            <Card className="px-4 py-2 overflow-visible">
+              <div className="w-full flex justify-between items-center pr-6    text-lg font-bold text-asiatech-gray-900">
+                <div>
+                  <span>پنل مدریت سرمایه و ترید </span>
+                </div>
+                <div className="flex gap-4 items-center">
+                  <span>{user?.username} </span>
+                  <Button
+                    variant="bordered"
+                    color="danger"
+                    onClick={handleLogout}
+                    className="flex items-center   px-4 py-2    rounded-2xl  transition duration-300"
+                  >
+                    <CiLogout className="ml-2 text-xl" />
+                    خروج
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
         )}
         <section className="w-full h-full px-6 -mt-12">{children}</section>
       </main>
